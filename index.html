@@ -10,8 +10,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"/>
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Lucide Icons -->
+    <!-- Lucide Icons & FontAwesome CDN for Social Logos -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
     <style>
         body { font-family: 'Inter', sans-serif; }
@@ -221,7 +222,7 @@
             </div>
         </section>
 
-        <!-- Contact Us Section (Connected with Links & Backend Form) -->
+        <!-- Contact Us Section with Fixed Official Social Logos -->
         <section id="contact" class="border-b border-purple-500/10 py-20 lg:py-28">
             <div class="mx-auto max-w-7xl px-5 lg:px-8">
                 <div class="text-center">
@@ -233,11 +234,11 @@
                 </div>
 
                 <div class="mt-12 grid gap-8 lg:grid-cols-2">
-                    <!-- Contact Cards & Social Links -->
+                    <!-- Contact Cards with Official FontAwesome Logos -->
                     <div class="flex flex-col gap-4">
                         <a href="https://wa.me/923251270990" target="_blank" class="card-glow flex items-center gap-4 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
-                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400">
-                                <i data-lucide="message-square" class="h-6 w-6"></i>
+                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 text-2xl shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                                <i class="fa-brands fa-whatsapp"></i>
                             </span>
                             <div>
                                 <h4 class="text-base font-bold text-white">WhatsApp Support</h4>
@@ -246,8 +247,8 @@
                         </a>
 
                         <a href="https://www.instagram.com/trade_with_asiass?stkn=dnFwYm54dmswOGFn&utm_source=qr" target="_blank" class="card-glow flex items-center gap-4 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
-                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-fuchsia-500/20 text-fuchsia-400">
-                                <i data-lucide="instagram" class="h-6 w-6"></i>
+                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white text-2xl shadow-[0_0_15px_rgba(225,29,72,0.4)]">
+                                <i class="fa-brands fa-instagram"></i>
                             </span>
                             <div>
                                 <h4 class="text-base font-bold text-white">Instagram</h4>
@@ -256,8 +257,8 @@
                         </a>
 
                         <a href="https://www.youtube.com/@asiass.offical" target="_blank" class="card-glow flex items-center gap-4 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
-                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-500/20 text-red-400">
-                                <i data-lucide="youtube" class="h-6 w-6"></i>
+                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-600/25 text-red-500 text-2xl shadow-[0_0_15px_rgba(239,68,68,0.3)]">
+                                <i class="fa-brands fa-youtube"></i>
                             </span>
                             <div>
                                 <h4 class="text-base font-bold text-white">YouTube Channel</h4>
@@ -266,8 +267,8 @@
                         </a>
 
                         <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="card-glow flex items-center gap-4 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
-                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500/20 text-purple-400">
-                                <i data-lucide="users" class="h-6 w-6"></i>
+                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500/20 text-purple-300 text-2xl shadow-[0_0_15px_rgba(168,85,247,0.3)]">
+                                <i class="fa-brands fa-whatsapp"></i>
                             </span>
                             <div>
                                 <h4 class="text-base font-bold text-white">WhatsApp Community</h4>
@@ -312,7 +313,7 @@
 
         <!-- Floating WhatsApp Button -->
         <a href="https://wa.me/923251270990" target="_blank" aria-label="Chat on WhatsApp" class="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-black shadow-[0_0_25px_rgba(16,185,129,0.55)] transition-transform hover:scale-110">
-            <i data-lucide="message-circle" class="h-7 w-7"></i>
+            <i class="fa-brands fa-whatsapp text-3xl"></i>
         </a>
     </div>
 
