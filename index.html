@@ -44,13 +44,12 @@
 <body class="bg-[#05050a] text-slate-100">
 
     <div class="min-h-screen bg-[#05050a] text-slate-100">
-        <!-- Header -->
+        <!-- Header Section with Logo -->
         <header class="sticky top-0 z-50 border-b border-purple-500/15 bg-[#05050a]/85 backdrop-blur-xl">
             <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
-                <a href="#" class="flex items-center gap-2.5">
-                    <span class="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-fuchsia-700 shadow-[0_0_18px_rgba(168,85,247,0.55)]">
-                        <i data-lucide="plane" class="h-5 w-5 text-white"></i>
-                    </span>
+                <a href="#" class="flex items-center gap-3">
+                    <!-- Custom Logo Image -->
+                    <img src="logo.png" alt="Trade with Asiass Logo" class="h-10 w-auto object-contain rounded-lg shadow-[0_0_15px_rgba(168,85,247,0.5)]" onerror="this.style.display='none'"/>
                     <span class="text-lg font-extrabold tracking-tight text-white">Trade with <span class="text-purple-400">Asiass</span></span>
                 </a>
                 <nav class="hidden items-center gap-7 lg:flex">
@@ -71,14 +70,21 @@
             </div>
         </header>
 
-        <!-- Hero Section -->
+        <!-- Hero Section with Custom Banner -->
         <section class="grid-bg relative overflow-hidden border-b border-purple-500/15">
             <div class="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-[#05050a]"></div>
             <div class="absolute -top-32 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-purple-600/25 blur-[110px]" aria-hidden="true"></div>
-            <div class="relative mx-auto flex max-w-7xl flex-col items-center px-5 py-24 text-center lg:py-36">
+            
+            <div class="relative mx-auto flex max-w-7xl flex-col items-center px-5 py-16 text-center lg:py-24">
                 <span class="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-300">
                     <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400"></span>Live Desk — Markets Open
                 </span>
+                
+                <!-- Banner Image Added Here -->
+                <div class="mb-8 w-full max-w-4xl overflow-hidden rounded-2xl border border-purple-500/30 shadow-[0_0_30px_rgba(168,85,247,0.25)]">
+                    <img src="banner.jpeg" alt="Trade with Asiass Banner" class="w-full h-auto max-h-[380px] object-cover" onerror="this.style.display='none'"/>
+                </div>
+
                 <h1 class="text-glow max-w-4xl text-4xl font-black uppercase leading-tight tracking-tight text-white sm:text-5xl lg:text-7xl">Trade with Asiass Airlines</h1>
                 <p class="mt-6 flex flex-wrap items-center justify-center gap-2 text-lg font-semibold text-purple-300 sm:text-xl">
                     <span>Analyze</span><span class="text-slate-500">•</span><span>Execute</span><span class="text-slate-500">•</span><span>Evolve</span>
@@ -116,7 +122,6 @@
                     <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">Fresh technical breakdowns from the desk, updated every session.</p>
                 </div>
                 <div class="mt-12 grid gap-6 lg:grid-cols-3">
-                    <!-- EUR/USD Card -->
                     <article class="card-glow rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden">
                         <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-purple-600/30 via-fuchsia-600/10 to-transparent bg-[#0a0a14]">
                             <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
@@ -134,7 +139,6 @@
                         </div>
                     </article>
 
-                    <!-- Gold Card -->
                     <article class="card-glow rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden">
                         <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-fuchsia-600/30 via-purple-600/10 to-transparent bg-[#0a0a14]">
                             <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
@@ -152,7 +156,6 @@
                         </div>
                     </article>
 
-                    <!-- GBP/JPY Card -->
                     <article class="card-glow rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden">
                         <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-purple-600/25 via-slate-600/10 to-transparent bg-[#0a0a14]">
                             <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
@@ -211,129 +214,6 @@
                             <i data-lucide="message-circle" class="h-4 w-4"></i>JOIN FREE COMMUNITY
                         </a>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Asiass School -->
-        <section id="school" class="border-b border-purple-500/10 py-20 lg:py-28">
-            <div class="mx-auto max-w-4xl px-5 lg:px-8">
-                <div>
-                    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-purple-400">
-                        <i data-lucide="graduation-cap" class="h-4 w-4"></i>Education
-                    </span>
-                    <h2 class="mt-3 text-3xl font-extrabold text-white sm:text-4xl">Asiass School</h2>
-                    <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">The modules every trader on the desk works through before going live.</p>
-                </div>
-                <div class="mt-12 space-y-3">
-                    <div class="overflow-hidden rounded-2xl border border-purple-500/15 bg-white/[0.03]">
-                        <div class="flex w-full items-center justify-between gap-4 px-6 py-5 text-left cursor-pointer">
-                            <span class="flex items-center gap-4">
-                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-500/15 text-purple-300">
-                                    <i data-lucide="clock" class="h-5 w-5"></i>
-                                </span>
-                                <span class="font-semibold text-white">Asian Session Mastery</span>
-                            </span>
-                            <i data-lucide="arrow-up-right" class="h-5 w-5 shrink-0 text-purple-400"></i>
-                        </div>
-                        <div class="px-6 pb-6 pl-[4.5rem]">
-                            <p class="text-sm leading-relaxed text-slate-400">Learn how the Asiass Airlines desk reads the Tokyo range, marks daily liquidity, and positions ahead of the London open.</p>
-                            <ul class="mt-4 space-y-2">
-                                <li class="flex items-center gap-2 text-sm text-slate-300"><span class="h-1 w-1 rounded-full bg-purple-400"></span>Mapping Asian session highs and lows</li>
-                                <li class="flex items-center gap-2 text-sm text-slate-300"><span class="h-1 w-1 rounded-full bg-purple-400"></span>Anticipating London liquidity sweeps</li>
-                                <li class="flex items-center gap-2 text-sm text-slate-300"><span class="h-1 w-1 rounded-full bg-purple-400"></span>Session-based bias confirmation</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="overflow-hidden rounded-2xl border border-purple-500/15 bg-white/[0.03]">
-                        <div class="flex w-full items-center justify-between gap-4 px-6 py-5 text-left cursor-pointer">
-                            <span class="flex items-center gap-4">
-                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-500/15 text-purple-300">
-                                    <i data-lucide="target" class="h-5 w-5"></i>
-                                </span>
-                                <span class="font-semibold text-white">ICT / SMC Liquidity Rules</span>
-                            </span>
-                            <i data-lucide="arrow-up-right" class="h-5 w-5 shrink-0 text-purple-400"></i>
-                        </div>
-                    </div>
-                    <div class="overflow-hidden rounded-2xl border border-purple-500/15 bg-white/[0.03]">
-                        <div class="flex w-full items-center justify-between gap-4 px-6 py-5 text-left cursor-pointer">
-                            <span class="flex items-center gap-4">
-                                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-purple-500/15 text-purple-300">
-                                    <i data-lucide="shield-check" class="h-5 w-5"></i>
-                                </span>
-                                <span class="font-semibold text-white">Risk Management</span>
-                            </span>
-                            <i data-lucide="arrow-up-right" class="h-5 w-5 shrink-0 text-purple-400"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Trades Breakdown Table -->
-        <section id="breakdown" class="border-b border-purple-500/10 py-20 lg:py-28">
-            <div class="mx-auto max-w-4xl px-5 lg:px-8">
-                <div>
-                    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-purple-400">
-                        <i data-lucide="newspaper" class="h-4 w-4"></i>Transparency
-                    </span>
-                    <h2 class="mt-3 text-3xl font-extrabold text-white sm:text-4xl">Trades Breakdown</h2>
-                    <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">Every call, tracked by pair — no cherry-picking.</p>
-                </div>
-                <div class="mt-12 overflow-hidden rounded-2xl border border-purple-500/15">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr class="border-b border-purple-500/15 bg-white/[0.03] text-left text-xs uppercase tracking-wide text-slate-500">
-                                <th class="px-6 py-4">Pair</th>
-                                <th class="px-6 py-4">Trades</th>
-                                <th class="px-6 py-4">Wins</th>
-                                <th class="px-6 py-4">Net Pips</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b border-purple-500/10 last:border-0">
-                                <td class="px-6 py-4 font-semibold text-white">EUR/USD</td>
-                                <td class="px-6 py-4 text-slate-400">42</td>
-                                <td class="px-6 py-4 text-slate-400">37</td>
-                                <td class="px-6 py-4 font-mono font-semibold text-emerald-400">+612</td>
-                            </tr>
-                            <tr class="border-b border-purple-500/10 last:border-0">
-                                <td class="px-6 py-4 font-semibold text-white">XAU/USD</td>
-                                <td class="px-6 py-4 text-slate-400">28</td>
-                                <td class="px-6 py-4 text-slate-400">24</td>
-                                <td class="px-6 py-4 font-mono font-semibold text-emerald-400">+540</td>
-                            </tr>
-                            <tr class="border-b border-purple-500/10 last:border-0">
-                                <td class="px-6 py-4 font-semibold text-white">GBP/JPY</td>
-                                <td class="px-6 py-4 text-slate-400">19</td>
-                                <td class="px-6 py-4 text-slate-400">16</td>
-                                <td class="px-6 py-4 font-mono font-semibold text-emerald-400">+298</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="mt-10 flex items-center gap-3 rounded-2xl border border-purple-500/15 bg-white/[0.03] px-6 py-4 text-sm text-slate-400">
-                    <i data-lucide="calendar" class="h-4 w-4 shrink-0 text-purple-400"></i>Full economic calendar and session times are shared daily in the WhatsApp community.
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Us -->
-        <section id="contact" class="py-20 lg:py-28">
-            <div class="mx-auto max-w-3xl px-5 text-center lg:px-8">
-                <div class="text-center">
-                    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-purple-400 justify-center">
-                        <i data-lucide="shield" class="h-4 w-4"></i>Get In Touch
-                    </span>
-                    <h2 class="mt-3 text-3xl font-extrabold text-white sm:text-4xl">Contact Us</h2>
-                    <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">Questions about the desk, partnerships, or VIP access.</p>
-                </div>
-                <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                    <a href="mailto:contact@tradewithasiass.com" class="rounded-full border border-purple-500/30 bg-white/5 px-8 py-3.5 text-sm font-bold text-slate-200 transition-colors hover:border-purple-400/60 hover:bg-purple-500/10">contact@tradewithasiass.com</a>
-                    <a href="https://chat.whatsapp.com/" target="_blank" class="btn-glow flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-8 py-3.5 text-sm font-bold text-white">
-                        <i data-lucide="message-circle" class="h-4 w-4"></i>Message on WhatsApp
-                    </a>
                 </div>
             </div>
         </section>
