@@ -1,117 +1,370 @@
-<!-- Analysis Feed -->
-<section id="analysis" class="border-b border-purple-500/10 py-20 lg:py-28">
-    <div class="mx-auto max-w-7xl px-5 lg:px-8">
-        <div>
-            <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-purple-400">
-                <i data-lucide="bar-chart-2" class="h-4 w-4"></i>Daily Setups
-            </span>
-            <h2 class="mt-3 text-3xl font-extrabold text-white sm:text-4xl">Analysis Feed</h2>
-            <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">Fresh technical breakdowns from the desk, updated every session.</p>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Trade with Asiass Airlines</title>
+    <meta name="description" content="Trade with Asiass Airlines — daily analysis, live WhatsApp community stats, and the Asiass School of trading education."/>
+    
+    <!-- Fonts & Tailwind CSS CDN -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons & FontAwesome CDN for Social Logos -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .grid-bg {
+            background-image: linear-gradient(to right, rgba(168, 85, 247, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(168, 85, 247, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .btn-glow {
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn-glow:hover {
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.7);
+            transform: translateY(-2px);
+        }
+        .text-glow {
+            text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+        }
+        .card-glow {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
+            transition: all 0.3s ease;
+        }
+        .card-glow:hover {
+            border-color: rgba(168, 85, 247, 0.4);
+            box-shadow: 0 0 25px rgba(168, 85, 247, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-[#05050a] text-slate-100">
+
+    <div class="min-h-screen bg-[#05050a] text-slate-100">
+        <!-- Header Section with Logo -->
+        <header class="sticky top-0 z-50 border-b border-purple-500/15 bg-[#05050a]/85 backdrop-blur-xl">
+            <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
+                <a href="#" class="flex items-center gap-3">
+                    <!-- Custom Logo Image -->
+                    <img src="logo.png" alt="Trade with Asiass Logo" class="h-10 w-auto object-contain rounded-lg shadow-[0_0_15px_rgba(168,85,247,0.5)]" onerror="this.style.display='none'"/>
+                    <span class="text-lg font-extrabold tracking-tight text-white">Trade with <span class="text-purple-400">Asiass</span></span>
+                </a>
+                <nav class="hidden items-center gap-7 lg:flex">
+                    <a href="#analysis" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Analysis</a>
+                    <a href="#news" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">News</a>
+                    <a href="#school" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Asiass School</a>
+                    <a href="#calendar" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Calendar</a>
+                    <a href="#stats" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">WhatsApp Stats</a>
+                    <a href="#breakdown" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Trades Breakdown</a>
+                    <a href="#contact" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Contact Us</a>
+                </nav>
+                <div class="hidden lg:block">
+                    <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="btn-glow rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-5 py-2.5 text-sm font-bold text-white">JOIN VIP</a>
+                </div>
+                <button id="mobileMenuBtn" class="rounded-md p-2 text-slate-200 lg:hidden" aria-label="Toggle navigation" aria-expanded="false">
+                    <i id="menuIconOpen" data-lucide="menu" class="h-6 w-6"></i>
+                    <i id="menuIconClose" data-lucide="x" class="hidden h-6 w-6"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Dropdown Menu -->
+            <div id="mobileMenu" class="hidden border-t border-purple-500/15 bg-[#05050a]/95 backdrop-blur-xl lg:hidden">
+                <nav class="flex flex-col px-5 py-4">
+                    <a href="#analysis" class="mobile-nav-link border-b border-purple-500/10 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Analysis</a>
+                    <a href="#news" class="mobile-nav-link border-b border-purple-500/10 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">News</a>
+                    <a href="#school" class="mobile-nav-link border-b border-purple-500/10 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Asiass School</a>
+                    <a href="#calendar" class="mobile-nav-link border-b border-purple-500/10 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Calendar</a>
+                    <a href="#stats" class="mobile-nav-link border-b border-purple-500/10 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">WhatsApp Stats</a>
+                    <a href="#breakdown" class="mobile-nav-link border-b border-purple-500/10 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Trades Breakdown</a>
+                    <a href="#contact" class="mobile-nav-link py-3 text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Contact Us</a>
+                    <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="btn-glow mt-4 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-5 py-3 text-center text-sm font-bold text-white">JOIN VIP</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- Hero Section with Background Banner Overlay -->
+        <section class="grid-bg relative overflow-hidden border-b border-purple-500/15 py-20 lg:py-32">
+            <!-- Background Banner Image with Dark Opacity Layer -->
+            <div class="absolute inset-0 z-0">
+                <img src="banner.jpeg" alt="Trade with Asiass Banner" class="h-full w-full object-cover opacity-25 filter blur-[1px]" onerror="this.style.display='none'"/>
+                <div class="absolute inset-0 bg-gradient-to-b from-[#05050a]/75 via-[#05050a]/85 to-[#05050a]"></div>
+            </div>
+
+            <!-- Purple Glow Blur Effect -->
+            <div class="absolute -top-32 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-purple-600/25 blur-[110px]" aria-hidden="true"></div>
             
-            <!-- XAU/USD Card -->
-            <div onclick="openAnalysis('xau')" class="card-glow cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] overflow-hidden transition-all hover:scale-[1.02]">
-                <div class="relative flex h-40 items-center justify-center bg-gradient-to-br from-amber-600/20 via-yellow-600/10 to-transparent">
-                    <span class="text-4xl font-black text-amber-400/80">XAU</span>
+            <div class="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-5 text-center">
+                <span class="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-300 backdrop-blur-md">
+                    <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400"></span>Live Desk — Markets Open
+                </span>
+
+                <h1 class="text-glow max-w-4xl text-4xl font-black uppercase leading-tight tracking-tight text-white sm:text-5xl lg:text-7xl">Trade with Asiass Airlines</h1>
+                <p class="mt-6 flex flex-wrap items-center justify-center gap-2 text-lg font-semibold text-purple-300 sm:text-xl">
+                    <span>Analyze</span><span class="text-slate-500">•</span><span>Execute</span><span class="text-slate-500">•</span><span>Evolve</span>
+                </p>
+                <p class="mt-6 max-w-xl text-sm leading-relaxed text-slate-300 sm:text-base">Daily EUR/USD and Gold breakdowns, an 88% win-rate community, and the ICT/SMC education stack that powers every call on the desk.</p>
+                
+                <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+                    <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="btn-glow rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-8 py-3.5 text-sm font-bold text-white">JOIN VIP COMMUNITY</a>
+                    <a href="#analysis" class="rounded-full border border-purple-500/30 bg-white/5 px-8 py-3.5 text-sm font-bold text-slate-200 backdrop-blur-md transition-colors hover:border-purple-400/60 hover:bg-purple-500/10">View Today's Analysis</a>
                 </div>
-                <div class="p-5 text-center">
-                    <h3 class="text-xl font-bold text-white">XAU/USD</h3>
-                    <p class="mt-1 text-xs text-slate-500">Click to view analysis</p>
+
+                <div class="mt-16 grid w-full max-w-2xl grid-cols-3 gap-4 border-t border-purple-500/15 pt-8">
+                    <div class="text-center">
+                        <div class="text-2xl font-extrabold text-white sm:text-3xl">88%</div>
+                        <div class="mt-1 text-xs uppercase tracking-wide text-slate-400">Win Rate</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-extrabold text-white sm:text-3xl">+1450</div>
+                        <div class="mt-1 text-xs uppercase tracking-wide text-slate-400">Pips Gained</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-extrabold text-white sm:text-3xl">12K+</div>
+                        <div class="mt-1 text-xs uppercase tracking-wide text-slate-400">Traders</div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <!-- EUR/USD Card -->
-            <div onclick="openAnalysis('eur')" class="card-glow cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] overflow-hidden transition-all hover:scale-[1.02]">
-                <div class="relative flex h-40 items-center justify-center bg-gradient-to-br from-blue-600/20 via-indigo-600/10 to-transparent">
-                    <span class="text-4xl font-black text-blue-400/80">EUR</span>
+        <!-- Analysis Feed -->
+        <section id="analysis" class="border-b border-purple-500/10 py-20 lg:py-28">
+            <div class="mx-auto max-w-7xl px-5 lg:px-8">
+                <div>
+                    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-purple-400">
+                        <i data-lucide="bar-chart-2" class="h-4 w-4"></i>Daily Setups
+                    </span>
+                    <h2 class="mt-3 text-3xl font-extrabold text-white sm:text-4xl">Analysis Feed</h2>
+                    <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">Fresh technical breakdowns from the desk, updated every session.</p>
                 </div>
-                <div class="p-5 text-center">
-                    <h3 class="text-xl font-bold text-white">EUR/USD</h3>
-                    <p class="mt-1 text-xs text-slate-500">Click to view analysis</p>
+                <div class="mt-12 grid gap-6 lg:grid-cols-3">
+                    <article class="card-glow rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden">
+                        <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-purple-600/30 via-fuchsia-600/10 to-transparent bg-[#0a0a14]">
+                            <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
+                                <polyline points="0,60 20,55 40,58 60,40 80,45 100,20 120,25 140,10" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between">
+                                <span class="rounded-full border px-2.5 py-1 text-[11px] font-semibold bg-purple-500/15 text-purple-300 border-purple-500/40">Swing Setup</span>
+                                <span class="flex items-center gap-1 text-xs text-slate-500"><i data-lucide="clock" class="h-3 w-3"></i> 2h ago</span>
+                            </div>
+                            <h3 class="mt-4 text-xl font-bold text-white">EUR/USD</h3>
+                            <p class="mt-2 text-sm leading-relaxed text-slate-400">Price swept the Asian session low and reclaimed the 1.0850 liquidity pool. Watching for a break of structure into the London open before targeting the 1.0920 supply zone.</p>
+                            <p class="mt-4 rounded-lg bg-black/30 px-3 py-2 text-xs font-mono text-purple-300">Entry 1.0862 · SL 1.0831 · TP 1.0921</p>
+                        </div>
+                    </article>
+
+                    <article class="card-glow rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden">
+                        <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-fuchsia-600/30 via-purple-600/10 to-transparent bg-[#0a0a14]">
+                            <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
+                                <polyline points="0,15 20,20 40,18 60,35 80,30 100,55 120,50 140,65" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between">
+                                <span class="rounded-full border px-2.5 py-1 text-[11px] font-semibold bg-amber-500/15 text-amber-300 border-amber-500/40">Intraday</span>
+                                <span class="flex items-center gap-1 text-xs text-slate-500"><i data-lucide="clock" class="h-3 w-3"></i> 5h ago</span>
+                            </div>
+                            <h3 class="mt-4 text-xl font-bold text-white">XAU/USD</h3>
+                            <p class="mt-2 text-sm leading-relaxed text-slate-400">Gold rejected the daily order block at 2,412 with a clean CHoCH on the 15m. Looking for continuation shorts on any retest of the imbalance before the NY session close.</p>
+                            <p class="mt-4 rounded-lg bg-black/30 px-3 py-2 text-xs font-mono text-purple-300">Entry 2,405 · SL 2,414 · TP 2,381</p>
+                        </div>
+                    </article>
+
+                    <article class="card-glow rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden">
+                        <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-purple-600/25 via-slate-600/10 to-transparent bg-[#0a0a14]">
+                            <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
+                                <polyline points="0,35 20,30 40,38 60,32 80,40 100,30 120,36 140,32" fill="none" stroke="#c084fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                            </svg>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center justify-between">
+                                <span class="rounded-full border px-2.5 py-1 text-[11px] font-semibold bg-emerald-500/15 text-emerald-300 border-emerald-500/40">Asian Session</span>
+                                <span class="flex items-center gap-1 text-xs text-slate-500"><i data-lucide="clock" class="h-3 w-3"></i> 11h ago</span>
+                            </div>
+                            <h3 class="mt-4 text-xl font-bold text-white">GBP/JPY</h3>
+                            <p class="mt-2 text-sm leading-relaxed text-slate-400">Consolidating inside yesterday’s range after a liquidity grab on both sides. Standing aside until Tokyo builds a clear high/low for London to sweep.</p>
+                            <p class="mt-4 rounded-lg bg-black/30 px-3 py-2 text-xs font-mono text-purple-300">Range 198.20 – 199.05</p>
+                        </div>
+                    </article>
                 </div>
             </div>
+        </section>
 
-            <!-- USD/JPY Card -->
-            <div onclick="openAnalysis('jpy')" class="card-glow cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] overflow-hidden transition-all hover:scale-[1.02]">
-                <div class="relative flex h-40 items-center justify-center bg-gradient-to-br from-purple-600/20 via-fuchsia-600/10 to-transparent">
-                    <span class="text-4xl font-black text-purple-400/80">JPY</span>
+        <!-- WhatsApp Stats -->
+        <section id="stats" class="relative overflow-hidden border-b border-purple-500/10 py-20 lg:py-28">
+            <div class="absolute inset-0 grid-bg opacity-40" aria-hidden="true"></div>
+            <div class="relative mx-auto max-w-5xl px-5 lg:px-8">
+                <div class="text-center">
+                    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-purple-400 justify-center">
+                        <i data-lucide="message-circle" class="h-4 w-4"></i>Community Dashboard
+                    </span>
+                    <h2 class="mt-3 text-3xl font-extrabold text-white sm:text-4xl">WhatsApp Stats</h2>
+                    <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">Real performance, tracked live inside the Asiass Airlines WhatsApp community.</p>
                 </div>
-                <div class="p-5 text-center">
-                    <h3 class="text-xl font-bold text-white">USD/JPY</h3>
-                    <p class="mt-1 text-xs text-slate-500">Click to view analysis</p>
+                <div class="mt-12 grid gap-6 rounded-3xl border border-purple-500/25 bg-gradient-to-b from-purple-500/[0.06] to-transparent p-8 sm:grid-cols-2 lg:p-12">
+                    <div class="flex items-center gap-4 rounded-2xl border border-purple-500/15 bg-black/30 p-6">
+                        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500/15 text-purple-300">
+                            <i data-lucide="target" class="h-6 w-6"></i>
+                        </span>
+                        <div>
+                            <div class="text-3xl font-extrabold text-white">88%</div>
+                            <div class="text-xs uppercase tracking-wide text-slate-500">Win Rate</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 rounded-2xl border border-purple-500/15 bg-black/30 p-6">
+                        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500/15 text-purple-300">
+                            <i data-lucide="trending-up" class="h-6 w-6"></i>
+                        </span>
+                        <div>
+                            <div class="text-3xl font-extrabold text-white">+1450</div>
+                            <div class="text-xs uppercase tracking-wide text-slate-500">Pips Gained (30D)</div>
+                        </div>
+                    </div>
+                    <div class="col-span-full mt-2 flex flex-col items-center gap-4 border-t border-purple-500/15 pt-8 text-center">
+                        <div class="flex items-center gap-2 text-sm text-slate-400">
+                            <i data-lucide="users" class="h-4 w-4 text-emerald-400"></i>12,400+ traders receiving daily signals
+                        </div>
+                        <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="flex items-center gap-2 rounded-full bg-emerald-500 px-8 py-3.5 text-sm font-bold text-black shadow-[0_0_25px_rgba(16,185,129,0.4)] transition-transform hover:scale-[1.03]">
+                            <i data-lucide="message-circle" class="h-4 w-4"></i>JOIN FREE COMMUNITY
+                        </a>
+                    </div>
                 </div>
             </div>
+        </section>
 
-        </div>
+        <!-- Contact Us Section with Fixed Official Social Logos -->
+        <section id="contact" class="border-b border-purple-500/10 py-20 lg:py-28">
+            <div class="mx-auto max-w-7xl px-5 lg:px-8">
+                <div class="text-center">
+                    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-purple-400 justify-center">
+                        <i data-lucide="mail" class="h-4 w-4"></i>Get In Touch
+                    </span>
+                    <h2 class="mt-3 text-3xl font-extrabold text-white sm:text-4xl">Contact Us</h2>
+                    <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base mx-auto">Have questions or need assistance? Reach out to us directly or join our social channels.</p>
+                </div>
+
+                <div class="mt-12 grid gap-8 lg:grid-cols-2">
+                    <!-- Contact Cards with Official FontAwesome Logos -->
+                    <div class="flex flex-col gap-4">
+                        <a href="https://wa.me/923251270990" target="_blank" class="card-glow flex items-center gap-4 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
+                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 text-2xl shadow-[0_0_15px_rgba(16,185,129,0.3)]">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-base font-bold text-white">WhatsApp Support</h4>
+                                <p class="text-sm text-slate-400">+92 325 1270990</p>
+                            </div>
+                        </a>
+
+                        <a href="https://www.instagram.com/trade_with_asiass?stkn=dnFwYm54dmswOGFn&utm_source=qr" target="_blank" class="card-glow flex items-center gap-4 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
+                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white text-2xl shadow-[0_0_15px_rgba(225,29,72,0.4)]">
+                                <i class="fa-brands fa-instagram"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-base font-bold text-white">Instagram</h4>
+                                <p class="text-sm text-slate-400">@trade_with_asiass</p>
+                            </div>
+                        </a>
+
+                        <a href="https://www.youtube.com/@asiass.offical" target="_blank" class="card-glow flex items-center gap-4 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
+                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-red-600/25 text-red-500 text-2xl shadow-[0_0_15px_rgba(239,68,68,0.3)]">
+                                <i class="fa-brands fa-youtube"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-base font-bold text-white">YouTube Channel</h4>
+                                <p class="text-sm text-slate-400">@asiass.offical</p>
+                            </div>
+                        </a>
+
+                        <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="card-glow flex items-center gap-4 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
+                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500/20 text-purple-300 text-2xl shadow-[0_0_15px_rgba(168,85,247,0.3)]">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-base font-bold text-white">WhatsApp Community</h4>
+                                <p class="text-sm text-slate-400">Join Free Signals Group</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Functional Contact Form -->
+                    <div class="card-glow rounded-2xl border border-purple-500/15 bg-white/[0.03] p-6 lg:p-8">
+                        <h3 class="text-xl font-bold text-white mb-6">Send us a Direct Message</h3>
+                        <form action="https://formspree.io/f/xbjnqpkp" method="POST" class="flex flex-col gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Your Name</label>
+                                <input type="text" name="name" required placeholder="John Doe" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-4 py-3 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"/>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
+                                <input type="email" name="email" required placeholder="name@example.com" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-4 py-3 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"/>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Message</label>
+                                <textarea name="message" rows="4" required placeholder="Type your query here..." class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-4 py-3 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"></textarea>
+                            </div>
+                            <button type="submit" class="btn-glow mt-2 w-full rounded-xl bg-gradient-to-r from-purple-500 to-fuchsia-600 py-3.5 text-sm font-bold text-white">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-purple-500/15 py-10">
+            <div class="mx-auto flex max-w-7xl flex-col items-center gap-4 px-5 text-center lg:px-8">
+                <span class="flex items-center gap-2 text-sm font-bold text-white">
+                    <i data-lucide="plane" class="h-4 w-4 text-purple-400"></i>Trade with Asiass
+                </span>
+                <p class="max-w-md text-xs leading-relaxed text-slate-500">Trading involves risk. Analysis shared here is for educational purposes and is not financial advice. Past performance does not guarantee future results.</p>
+                <p class="text-xs text-slate-600">© 2026 Trade with Asiass Airlines. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <!-- Floating WhatsApp Button -->
+        <a href="https://wa.me/923251270990" target="_blank" aria-label="Chat on WhatsApp" class="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-black shadow-[0_0_25px_rgba(16,185,129,0.55)] transition-transform hover:scale-110">
+            <i class="fa-brands fa-whatsapp text-3xl"></i>
+        </a>
     </div>
-</section>
 
-<!-- Analysis Modal -->
-<div id="analysisModal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-    <div class="relative w-full max-w-4xl rounded-2xl border border-purple-500/30 bg-[#0a0a14] overflow-hidden">
-        
-        <!-- Close Button -->
-        <button onclick="closeAnalysis()" class="absolute right-4 top-4 z-10 rounded-full bg-white/10 p-2 text-white hover:bg-white/20">
-            <i data-lucide="x" class="h-5 w-5"></i>
-        </button>
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
 
-        <!-- Modal Content -->
-        <div class="p-6">
-            <h3 id="modalTitle" class="text-2xl font-bold text-white mb-4"></h3>
-            
-            <!-- Yahan aap chart / image / video daaloge -->
-            <div id="modalContent" class="min-h-[300px] rounded-xl bg-black/40 flex items-center justify-center border border-purple-500/20">
-                <!-- Content yahan dynamically aayega -->
-            </div>
-        </div>
-    </div>
-</div>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuIconOpen = document.getElementById('menuIconOpen');
+        const menuIconClose = document.getElementById('menuIconClose');
 
-<script>
-    // Analysis Modal Functions
-    function openAnalysis(pair) {
-        const modal = document.getElementById('analysisModal');
-        const title = document.getElementById('modalTitle');
-        const content = document.getElementById('modalContent');
-
-        // Pair ke hisaab se title set karo
-        if (pair === 'xau') {
-            title.innerText = 'XAU/USD Analysis';
-            content.innerHTML = `
-                <!-- Yahan XAU chart/image/video daalna -->
-                <img src="xau-chart.jpg" alt="XAU/USD Chart" class="w-full rounded-lg" onerror="this.parentElement.innerHTML='<p class=\\'text-slate-400\\'>XAU/USD chart yahan upload karein</p>'">
-            `;
-        } 
-        else if (pair === 'eur') {
-            title.innerText = 'EUR/USD Analysis';
-            content.innerHTML = `
-                <!-- Yahan EUR chart/image/video daalna -->
-                <img src="eur-chart.jpg" alt="EUR/USD Chart" class="w-full rounded-lg" onerror="this.parentElement.innerHTML='<p class=\\'text-slate-400\\'>EUR/USD chart yahan upload karein</p>'">
-            `;
-        } 
-        else if (pair === 'jpy') {
-            title.innerText = 'USD/JPY Analysis';
-            content.innerHTML = `
-                <!-- Yahan JPY chart/image/video daalna -->
-                <img src="jpy-chart.jpg" alt="USD/JPY Chart" class="w-full rounded-lg" onerror="this.parentElement.innerHTML='<p class=\\'text-slate-400\\'>USD/JPY chart yahan upload karein</p>'">
-            `;
+        function closeMobileMenu() {
+            mobileMenu.classList.add('hidden');
+            menuIconOpen.classList.remove('hidden');
+            menuIconClose.classList.add('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', 'false');
         }
 
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-        lucide.createIcons();
-    }
+        function openMobileMenu() {
+            mobileMenu.classList.remove('hidden');
+            menuIconOpen.classList.add('hidden');
+            menuIconClose.classList.remove('hidden');
+            mobileMenuBtn.setAttribute('aria-expanded', 'true');
+        }
 
-    function closeAnalysis() {
-        const modal = document.getElementById('analysisModal');
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-    }
+        mobileMenuBtn.addEventListener('click', function () {
+            const isOpen = !mobileMenu.classList.contains('hidden');
+            isOpen ? closeMobileMenu() : openMobileMenu();
+        });
 
-    // Modal bahar click se band ho
-    document.getElementById('analysisModal').addEventListener('click', function(e) {
-        if (e.target === this) closeAnalysis();
-    });
-</script>
+        // Close menu after tapping a link (so it scrolls to the section)
+        document.querySelectorAll('.mobile-nav-link').forEach(function (link) {
+            link.addEventListener('click', closeMobileMenu);
+        });
+    </script>
+</body>
+</html>
