@@ -141,7 +141,7 @@
                     <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">Fresh technical breakdowns from the desk, updated every session.</p>
                 </div>
                 <div class="mt-12 grid gap-6 lg:grid-cols-3">
-                    <article class="pair-card card-glow cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="XAU/USD" data-image="xauusd.png">
+                    <article class="pair-card card-glow cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="XAU/USD" data-image="xauusd.png" data-desc="desc-xauusd">
                         <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-purple-600/30 via-fuchsia-600/10 to-transparent bg-[#0a0a14]">
                             <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
                                 <polyline points="0,60 20,55 40,58 60,40 80,45 100,20 120,25 140,10" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
@@ -182,14 +182,47 @@
 
         <!-- Pair Chart Modal -->
         <div id="pairModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-            <div class="relative w-full max-w-3xl rounded-2xl border border-purple-500/25 bg-[#0a0a14] p-4">
+            <div class="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-purple-500/25 bg-[#0a0a14] p-5 lg:p-6">
                 <button id="closePairModal" class="absolute -top-3 -right-3 flex h-9 w-9 items-center justify-center rounded-full bg-purple-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.6)]" aria-label="Close">
                     <i data-lucide="x" class="h-5 w-5"></i>
                 </button>
-                <h3 id="pairModalTitle" class="mb-3 text-lg font-bold text-white"></h3>
+                <h3 id="pairModalTitle" class="mb-4 text-lg font-bold text-white"></h3>
+
+                <!-- Description (shown when available) -->
+                <div id="pairModalDesc" class="mb-5 hidden space-y-4 rounded-xl border border-purple-500/15 bg-white/[0.03] p-4 text-sm leading-relaxed text-slate-300 lg:p-5"></div>
+
+                <!-- Chart -->
                 <img id="pairModalImage" src="" alt="Chart" class="w-full rounded-xl border border-purple-500/15" onerror="this.src='';this.alt='Chart not uploaded yet';this.classList.add('py-24','text-center','text-slate-500');"/>
             </div>
         </div>
+
+        <!-- Hidden description templates (read by JS, not shown directly) -->
+        <template id="desc-xauusd">
+            <p class="font-bold text-purple-300">XAUUSD — 5M Market Outlook</p>
+
+            <div class="grid gap-2 rounded-lg bg-black/30 p-3 font-mono text-xs sm:grid-cols-3">
+                <div><span class="text-slate-500">Market Bias:</span> <span class="text-emerald-400">Bullish above 4,280</span></div>
+                <div><span class="text-slate-500">Demand Zone:</span> <span class="text-white">4,274 – 4,281</span></div>
+                <div><span class="text-slate-500">BSL:</span> <span class="text-white">4,324</span></div>
+            </div>
+
+            <div>
+                <p class="mb-1 font-semibold text-white">Bullish Scenario</p>
+                <p>Price is currently retracing toward the marked Demand Zone. If the zone holds and bullish confirmation appears, we may see continuation toward the upside liquidity.</p>
+            </div>
+
+            <div>
+                <p class="mb-1 font-semibold text-white">Upside Targets</p>
+                <p class="font-mono text-xs text-purple-300">TP1 → 4,300 &nbsp;·&nbsp; TP2 → 4,312 &nbsp;·&nbsp; TP3 → 4,324 (BSL)</p>
+            </div>
+
+            <div>
+                <p class="mb-1 font-semibold text-amber-400">Invalidation</p>
+                <p>A clean break and sustained move below 4,274 would invalidate the bullish setup and may indicate further downside.</p>
+            </div>
+
+            <p class="border-t border-purple-500/15 pt-3 text-center text-xs uppercase tracking-wide text-slate-500">Wait for Confirmation • Manage Risk • Execute with Discipline</p>
+        </template>
 
         <!-- Asiass School -->
         <section id="school" class="border-b border-purple-500/10 py-20 lg:py-28">
@@ -479,11 +512,24 @@
         const pairModalImage = document.getElementById('pairModalImage');
         const closePairModal = document.getElementById('closePairModal');
 
+        const pairModalDesc = document.getElementById('pairModalDesc');
+
         document.querySelectorAll('.pair-card').forEach(function (card) {
             card.addEventListener('click', function () {
                 pairModalTitle.textContent = card.getAttribute('data-pair');
                 pairModalImage.setAttribute('src', card.getAttribute('data-image'));
                 pairModalImage.classList.remove('py-24', 'text-center', 'text-slate-500');
+
+                const descId = card.getAttribute('data-desc');
+                const descTemplate = descId ? document.getElementById(descId) : null;
+                if (descTemplate) {
+                    pairModalDesc.innerHTML = descTemplate.innerHTML;
+                    pairModalDesc.classList.remove('hidden');
+                } else {
+                    pairModalDesc.innerHTML = '';
+                    pairModalDesc.classList.add('hidden');
+                }
+
                 pairModal.classList.remove('hidden');
                 pairModal.classList.add('flex');
             });
