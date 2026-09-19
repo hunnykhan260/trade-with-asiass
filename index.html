@@ -59,6 +59,7 @@
                 </a>
                 <nav class="hidden items-center gap-7 lg:flex">
                     <a href="#analysis" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Analysis</a>
+                    <a href="#live-signal" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Live Signal</a>
                     <a href="#news" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">News</a>
                     <a href="#calculator" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Risk Calculator</a>
                     <a href="#school" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Asiass School</a>
@@ -78,6 +79,7 @@
             <div id="mobileMenu" class="hidden border-t border-purple-500/15 bg-[#05050a]/95 backdrop-blur-xl lg:hidden">
                 <nav class="flex flex-col px-5 py-4">
                     <a href="#analysis" class="mobile-nav-link border-b border-purple-500/10 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Analysis</a>
+                    <a href="#live-signal" class="mobile-nav-link border-b border-purple-500/10 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Live Signal</a>
                     <a href="#news" class="mobile-nav-link border-b border-purple-500/10 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">News</a>
                     <a href="#calculator" class="mobile-nav-link border-b border-purple-500/10 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Risk Calculator</a>
                     <a href="#school" class="mobile-nav-link border-b border-purple-500/10 py-3 text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Asiass School</a>
@@ -210,6 +212,101 @@
 
             <p class="border-t border-purple-500/15 pt-3 text-center text-xs uppercase tracking-wide text-slate-500">Wait for Confirmation • Manage Risk • Execute with Discipline</p>
         </template>
+
+        <!-- Live Signal -->
+        <section id="live-signal" class="border-b border-purple-500/10 py-20 lg:py-28">
+            <div class="mx-auto max-w-4xl px-5 lg:px-8">
+                <div>
+                    <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-purple-400">
+                        <span class="relative flex h-2 w-2"><span id="liveDot" class="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-purple-500"></span></span>Live Signal
+                    </span>
+                    <h2 class="mt-3 text-3xl font-extrabold text-white sm:text-4xl">Active Trade</h2>
+                    <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">Updates instantly for everyone the moment a new setup is published.</p>
+                </div>
+
+                <div id="liveSignalCard" class="card-glow mt-12 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-6 lg:p-8">
+                    <div id="noSignalMsg" class="py-10 text-center text-sm text-slate-500">No active trade right now. Check back soon.</div>
+
+                    <div id="signalContent" class="hidden">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <h3 id="sigPair" class="text-2xl font-extrabold text-white">—</h3>
+                                <span id="sigType" class="rounded-full border border-purple-500/40 bg-purple-500/15 px-3 py-1 text-xs font-bold text-purple-300">—</span>
+                            </div>
+                            <span id="sigStatus" class="rounded-full px-3 py-1 text-xs font-bold">—</span>
+                        </div>
+
+                        <div class="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                            <div class="rounded-xl border border-purple-500/10 bg-black/30 p-4 text-center">
+                                <div id="sigEntry" class="font-mono text-lg font-bold text-white">—</div>
+                                <div class="mt-1 text-[11px] uppercase tracking-wide text-slate-500">Entry</div>
+                            </div>
+                            <div class="rounded-xl border border-red-500/10 bg-black/30 p-4 text-center">
+                                <div id="sigSL" class="font-mono text-lg font-bold text-red-400">—</div>
+                                <div class="mt-1 text-[11px] uppercase tracking-wide text-slate-500">Stop Loss</div>
+                            </div>
+                            <div class="rounded-xl border border-emerald-500/10 bg-black/30 p-4 text-center">
+                                <div id="sigTP1" class="font-mono text-lg font-bold text-emerald-400">—</div>
+                                <div class="mt-1 text-[11px] uppercase tracking-wide text-slate-500">TP1</div>
+                            </div>
+                            <div class="rounded-xl border border-emerald-500/10 bg-black/30 p-4 text-center">
+                                <div id="sigTP2" class="font-mono text-lg font-bold text-emerald-400">—</div>
+                                <div class="mt-1 text-[11px] uppercase tracking-wide text-slate-500">TP2 (Final)</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 flex items-center justify-center gap-2 rounded-xl border border-purple-500/15 bg-purple-500/5 py-4">
+                            <i data-lucide="trending-up" class="h-5 w-5 text-purple-300"></i>
+                            <span class="text-sm text-slate-400">Highest Pips Reached:</span>
+                            <span id="sigHighestPips" class="font-mono text-lg font-bold text-purple-300">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin: Publish Trade Signal (hidden from regular visitors) -->
+                <div id="signalAdminPanel" class="mt-8 hidden rounded-3xl border border-purple-500/15 bg-white/[0.03] p-6 lg:p-8">
+                    <h3 class="mb-5 flex items-center gap-2 text-base font-bold text-white">
+                        <i data-lucide="radio" class="h-5 w-5 text-purple-300"></i>Publish Trade Signal
+                    </h3>
+                    <div class="grid gap-4 sm:grid-cols-3">
+                        <div>
+                            <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Pair</label>
+                            <input id="sigInPair" type="text" placeholder="XAUUSD" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"/>
+                        </div>
+                        <div>
+                            <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Order Type</label>
+                            <select id="sigInType" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-3 py-2.5 text-sm text-white focus:border-purple-500 focus:outline-none">
+                                <option value="BUY">BUY</option>
+                                <option value="SELL">SELL</option>
+                                <option value="BUY LIMIT">BUY LIMIT</option>
+                                <option value="SELL LIMIT">SELL LIMIT</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Entry Price</label>
+                            <input id="sigInEntry" type="number" step="0.01" placeholder="4004.00" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"/>
+                        </div>
+                        <div>
+                            <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Stop Loss</label>
+                            <input id="sigInSL" type="number" step="0.01" placeholder="3995.00" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"/>
+                        </div>
+                        <div>
+                            <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">TP1</label>
+                            <input id="sigInTP1" type="number" step="0.01" placeholder="4015.00" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"/>
+                        </div>
+                        <div>
+                            <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">TP2 (Final)</label>
+                            <input id="sigInTP2" type="number" step="0.01" placeholder="4030.00" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"/>
+                        </div>
+                    </div>
+                    <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+                        <button id="publishSignalBtn" class="btn-glow flex-1 rounded-xl bg-gradient-to-r from-purple-500 to-fuchsia-600 py-3 text-sm font-bold text-white">Publish Trade</button>
+                        <button id="closeSignalBtn" class="flex-1 rounded-xl border border-red-500/30 bg-red-500/10 py-3 text-sm font-bold text-red-400 hover:bg-red-500/20">Close / Reset Trade</button>
+                    </div>
+                    <p class="mt-4 text-[11px] text-slate-600">Live price tracking only runs while at least one browser tab (yours or a visitor's) has the site open. For 24/7 tracking &amp; push alerts even when the site is fully closed, a server-side component is needed — ask if you want that built separately.</p>
+                </div>
+            </div>
+        </section>
 
         <!-- Risk / Pip Calculator -->
         <section id="calculator" class="border-b border-purple-500/10 py-20 lg:py-28">
@@ -681,6 +778,8 @@
         if (isAdmin) {
             const panel = document.getElementById('adminPanel');
             if (panel) panel.classList.remove('hidden');
+            const sigPanel = document.getElementById('signalAdminPanel');
+            if (sigPanel) sigPanel.classList.remove('hidden');
         }
 
         let db = null;
@@ -857,6 +956,203 @@
             if (el) el.addEventListener('input', runCalculator);
         });
         if (calcPair) runCalculator();
+
+        // ================== LIVE SIGNAL SYSTEM ==================
+        const TWELVEDATA_API_KEY = "b4b97512a3794ef1a33e5114f9617701"; // your free key from twelvedata.com
+        const SIGNAL_DOC = firebaseReady ? db.collection('signals').doc('active_trade') : null;
+
+        // Ask for browser notification permission (works while the site is open/backgrounded)
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+        function notify(title, body) {
+            if ('Notification' in window && Notification.permission === 'granted') {
+                new Notification(title, { body: body });
+            }
+        }
+
+        const milestoneSteps = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+        function blankMilestones() {
+            const m = {};
+            milestoneSteps.forEach(function (p) { m['pips' + p] = false; });
+            return m;
+        }
+
+        // --- Admin: Publish / Reset ---
+        const publishSignalBtn = document.getElementById('publishSignalBtn');
+        if (publishSignalBtn) {
+            publishSignalBtn.addEventListener('click', function () {
+                if (!firebaseReady) { alert('Firebase not set up yet.'); return; }
+                const pair = document.getElementById('sigInPair').value.trim().toUpperCase();
+                const type = document.getElementById('sigInType').value;
+                const entry = parseFloat(document.getElementById('sigInEntry').value);
+                const sl = parseFloat(document.getElementById('sigInSL').value);
+                const tp1 = parseFloat(document.getElementById('sigInTP1').value);
+                const tp2 = parseFloat(document.getElementById('sigInTP2').value);
+                if (!pair || isNaN(entry) || isNaN(sl) || isNaN(tp1) || isNaN(tp2)) {
+                    alert('Please fill all fields correctly.');
+                    return;
+                }
+                const isMarketOrder = (type === 'BUY' || type === 'SELL');
+                SIGNAL_DOC.set({
+                    pair: pair, type: type, entry: entry, sl: sl, tp1: tp1, tp2: tp2,
+                    status: isMarketOrder ? 'ACTIVE' : 'PENDING',
+                    highestPipsReached: 0,
+                    milestonesTriggered: blankMilestones(),
+                    updatedAt: Date.now()
+                });
+            });
+        }
+
+        const closeSignalBtn = document.getElementById('closeSignalBtn');
+        if (closeSignalBtn) {
+            closeSignalBtn.addEventListener('click', function () {
+                if (!firebaseReady) return;
+                if (!confirm('Close and reset the current trade?')) return;
+                SIGNAL_DOC.delete();
+            });
+        }
+
+        // --- Public: render live signal for everyone ---
+        const statusColors = {
+            PENDING: 'bg-amber-500/15 text-amber-300',
+            ACTIVE: 'bg-emerald-500/15 text-emerald-300',
+            TP1_HIT: 'bg-purple-500/15 text-purple-300',
+            COMPLETED: 'bg-emerald-500/25 text-emerald-300',
+            STOP_LOSS_HIT: 'bg-red-500/15 text-red-400'
+        };
+
+        let currentSignal = null;
+
+        function renderSignal(data) {
+            const noMsg = document.getElementById('noSignalMsg');
+            const content = document.getElementById('signalContent');
+            if (!data) {
+                noMsg.classList.remove('hidden');
+                content.classList.add('hidden');
+                return;
+            }
+            noMsg.classList.add('hidden');
+            content.classList.remove('hidden');
+
+            document.getElementById('sigPair').textContent = data.pair;
+            document.getElementById('sigType').textContent = data.type;
+            document.getElementById('sigEntry').textContent = data.entry;
+            document.getElementById('sigSL').textContent = data.sl;
+            document.getElementById('sigTP1').textContent = data.tp1;
+            document.getElementById('sigTP2').textContent = data.tp2;
+            document.getElementById('sigHighestPips').textContent = data.highestPipsReached || 0;
+
+            const statusEl = document.getElementById('sigStatus');
+            statusEl.textContent = (data.status || '').replace(/_/g, ' ');
+            statusEl.className = 'rounded-full px-3 py-1 text-xs font-bold ' + (statusColors[data.status] || 'bg-slate-500/15 text-slate-300');
+        }
+
+        if (firebaseReady) {
+            SIGNAL_DOC.onSnapshot(function (doc) {
+                const prev = currentSignal;
+                currentSignal = doc.exists ? doc.data() : null;
+                renderSignal(currentSignal);
+
+                if (currentSignal && (!prev || prev.updatedAt !== currentSignal.updatedAt) && (!prev || prev.entry !== currentSignal.entry)) {
+                    notify('🚨 NEW TRADE SIGNAL: ' + currentSignal.pair + ' ' + currentSignal.type,
+                        'Entry: ' + currentSignal.entry + ' | SL: ' + currentSignal.sl + ' | TP1: ' + currentSignal.tp1 + ' | TP2: ' + currentSignal.tp2);
+                }
+                if (currentSignal && prev && prev.status !== currentSignal.status) {
+                    if (currentSignal.status === 'ACTIVE' && prev.status === 'PENDING') {
+                        notify('🚀 TRADE ACTIVATED!', currentSignal.pair + ' ' + currentSignal.type + ' triggered entry @ ' + currentSignal.entry + '. Trade is now running!');
+                    } else if (currentSignal.status === 'TP1_HIT') {
+                        notify('✅ TP1 HIT', currentSignal.pair + ' ' + currentSignal.type + ' reached TP1 @ ' + currentSignal.tp1);
+                    } else if (currentSignal.status === 'COMPLETED') {
+                        notify('🎯 FINAL TP HIT', currentSignal.pair + ' ' + currentSignal.type + ' reached TP2 @ ' + currentSignal.tp2);
+                    } else if (currentSignal.status === 'STOP_LOSS_HIT') {
+                        notify('❌ STOP LOSS HIT', currentSignal.pair + ' ' + currentSignal.type + ' hit stop loss @ ' + currentSignal.sl);
+                    }
+                }
+            });
+        }
+
+        // --- Live price polling + pips + anti-duplicate milestones + TP/SL/activation ---
+        function pipMultiplier(pair) {
+            if (pair.indexOf('JPY') !== -1) return 100;   // 1 pip = 0.01 for JPY pairs
+            if (pair.indexOf('XAU') !== -1) return 10;    // 1 pip = 0.1 for Gold
+            return 10000;                                  // 1 pip = 0.0001 for standard forex pairs
+        }
+
+        async function fetchLivePrice(pair) {
+            if (!TWELVEDATA_API_KEY || TWELVEDATA_API_KEY.indexOf('YOUR_') === 0) return null;
+            try {
+                const symbol = pair.length === 6 ? pair.slice(0, 3) + '/' + pair.slice(3) : pair;
+                const res = await fetch('https://api.twelvedata.com/price?symbol=' + encodeURIComponent(symbol) + '&apikey=' + TWELVEDATA_API_KEY);
+                const json = await res.json();
+                return parseFloat(json.price);
+            } catch (e) {
+                console.warn('Price fetch failed', e);
+                return null;
+            }
+        }
+
+        async function checkLiveSignal() {
+            if (!firebaseReady || !currentSignal || !currentSignal.pair) return;
+            const price = await fetchLivePrice(currentSignal.pair);
+            if (price === null || isNaN(price)) return;
+
+            const s = currentSignal;
+            const mult = pipMultiplier(s.pair);
+            const isBuy = s.type.indexOf('BUY') !== -1;
+
+            // Activation for pending limit orders
+            if (s.status === 'PENDING') {
+                const triggered = isBuy ? price <= s.entry : price >= s.entry;
+                if (triggered) {
+                    SIGNAL_DOC.update({ status: 'ACTIVE', updatedAt: Date.now() });
+                    return;
+                }
+            }
+
+            if (s.status !== 'ACTIVE') return;
+
+            // SL hit
+            const slHit = isBuy ? price <= s.sl : price >= s.sl;
+            if (slHit) {
+                SIGNAL_DOC.update({ status: 'STOP_LOSS_HIT', updatedAt: Date.now() });
+                return;
+            }
+            // TP2 (final) hit
+            const tp2Hit = isBuy ? price >= s.tp2 : price <= s.tp2;
+            if (tp2Hit) {
+                SIGNAL_DOC.update({ status: 'COMPLETED', updatedAt: Date.now() });
+                return;
+            }
+            // TP1 hit
+            const tp1Hit = isBuy ? price >= s.tp1 : price <= s.tp1;
+            if (tp1Hit && s.status !== 'TP1_HIT') {
+                SIGNAL_DOC.update({ status: 'TP1_HIT', updatedAt: Date.now() });
+            }
+
+            // Pips + anti-duplicate milestones
+            const pips = Math.floor((isBuy ? (price - s.entry) : (s.entry - price)) * mult);
+            if (pips > (s.highestPipsReached || 0)) {
+                const updates = { highestPipsReached: pips, updatedAt: Date.now() };
+                const milestones = Object.assign({}, s.milestonesTriggered);
+                let newMilestoneHit = null;
+                milestoneSteps.forEach(function (step) {
+                    if (pips >= step && !milestones['pips' + step]) {
+                        milestones['pips' + step] = true;
+                        newMilestoneHit = step;
+                    }
+                });
+                updates.milestonesTriggered = milestones;
+                SIGNAL_DOC.update(updates);
+                if (newMilestoneHit) {
+                    notify('📈 PROFIT ALERT: +' + newMilestoneHit + ' PIPS!', s.pair + ' ' + s.type + ' is now running in +' + newMilestoneHit + ' pips profit!');
+                }
+            }
+        }
+
+        if (firebaseReady) {
+            setInterval(checkLiveSignal, 20000); // every 20s — stays within TwelveData free-tier rate limits
+        }
     </script>
 </body>
 </html>
