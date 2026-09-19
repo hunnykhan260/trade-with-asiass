@@ -267,7 +267,7 @@
                         </div>
                     </div>
 
-                    <p class="mt-5 text-center text-[11px] text-slate-600">For educational purposes only — not financial advice. Gold pip value assumes $0.01 movement per standard lot (100 oz); confirm exact contract specs with your broker.</p>
+                    <p class="mt-5 text-center text-[11px] text-slate-600">For educational purposes only — not financial advice. Gold pip value assumes $0.1 movement per standard lot (100 oz) = $10/pip; confirm exact contract specs with your broker.</p>
                 </div>
             </div>
         </section>
@@ -833,7 +833,7 @@
                 const price = parseFloat(calcJpyPrice.value) || 150;
                 return 1000 / price; // (0.01 * 100,000) / price
             }
-            if (pair === 'XAUUSD') return 1; // $1 per pip ($0.01 move), standard lot (100 oz)
+            if (pair === 'XAUUSD') return 10; // $10 per pip ($0.1 move), standard lot (100 oz)
             return 10;
         }
 
