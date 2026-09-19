@@ -16,6 +16,7 @@
     <!-- Firebase (shared live stats across all visitors) -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-compat.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
@@ -222,13 +223,64 @@
                         <span class="relative flex h-2 w-2"><span id="liveDot" class="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-purple-500"></span></span>Live Signal
                     </span>
                     <h2 class="mt-3 text-3xl font-extrabold text-white sm:text-4xl">Active Trade</h2>
-                    <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">Updates instantly for everyone the moment a new setup is published.</p>
-                    <button id="enableNotifBtn" class="btn-glow mt-5 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-6 py-2.5 text-sm font-bold text-white">
-                        <i data-lucide="bell" class="h-4 w-4"></i>Enable Notifications
-                    </button>
+                    <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">Create a free account to see live trade signals as they're published.</p>
                 </div>
 
-                <div id="liveSignalCard" class="card-glow mt-12 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-6 lg:p-8">
+                <!-- Auth Gate: sign up / log in required before viewing signals -->
+                <div id="authGate" class="card-glow mt-10 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-6 lg:p-8">
+                    <!-- Sign Up Form -->
+                    <div id="signupForm">
+                        <h3 class="mb-1 text-lg font-bold text-white">Create Your Account</h3>
+                        <p class="mb-5 text-xs text-slate-500">Sign up to unlock live signals — it's free.</p>
+                        <div class="grid gap-4 sm:grid-cols-2">
+                            <div>
+                                <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Phone Number</label>
+                                <input id="suPhone" type="tel" placeholder="+92 3XX XXXXXXX" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"/>
+                            </div>
+                            <div>
+                                <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Email Address</label>
+                                <input id="suEmail" type="email" placeholder="you@gmail.com" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"/>
+                            </div>
+                            <div class="sm:col-span-2">
+                                <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Create Password</label>
+                                <input id="suPassword" type="password" placeholder="At least 6 characters" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"/>
+                            </div>
+                        </div>
+                        <p id="signupError" class="mt-3 hidden text-sm text-red-400"></p>
+                        <button id="signupBtn" class="btn-glow mt-5 w-full rounded-xl bg-gradient-to-r from-purple-500 to-fuchsia-600 py-3 text-sm font-bold text-white">Create Account &amp; Continue</button>
+                        <p class="mt-4 text-center text-sm text-slate-400">Already have an account? <button id="showLoginBtn" class="font-semibold text-purple-300 hover:underline">Log in</button></p>
+                    </div>
+
+                    <!-- Login Form -->
+                    <div id="loginForm" class="hidden">
+                        <h3 class="mb-1 text-lg font-bold text-white">Welcome Back</h3>
+                        <p class="mb-5 text-xs text-slate-500">Log in to view live signals.</p>
+                        <div class="grid gap-4">
+                            <div>
+                                <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Email Address</label>
+                                <input id="liEmail" type="email" placeholder="you@gmail.com" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"/>
+                            </div>
+                            <div>
+                                <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-400">Password</label>
+                                <input id="liPassword" type="password" placeholder="Your password" class="w-full rounded-xl border border-purple-500/20 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-purple-500 focus:outline-none"/>
+                            </div>
+                        </div>
+                        <p id="loginError" class="mt-3 hidden text-sm text-red-400"></p>
+                        <button id="loginBtn" class="btn-glow mt-5 w-full rounded-xl bg-gradient-to-r from-purple-500 to-fuchsia-600 py-3 text-sm font-bold text-white">Log In</button>
+                        <p class="mt-4 text-center text-sm text-slate-400">Don't have an account? <button id="showSignupBtn" class="font-semibold text-purple-300 hover:underline">Sign up</button></p>
+                    </div>
+                </div>
+
+                <!-- Gated content: only visible once logged in -->
+                <div id="liveSignalGatedContent" class="hidden">
+                    <div class="mt-8 flex flex-wrap items-center justify-between gap-3">
+                        <button id="enableNotifBtn" class="btn-glow inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-6 py-2.5 text-sm font-bold text-white">
+                            <i data-lucide="bell" class="h-4 w-4"></i>Enable Notifications
+                        </button>
+                        <button id="logoutBtn" class="text-sm font-semibold text-slate-500 hover:text-red-400">Log out</button>
+                    </div>
+
+                <div id="liveSignalCard" class="card-glow mt-6 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-6 lg:p-8">
                     <div id="noSignalMsg" class="py-10 text-center text-sm text-slate-500">No active trade right now. Check back soon.</div>
 
                     <div id="signalContent" class="hidden">
@@ -265,6 +317,7 @@
                             <span id="sigHighestPips" class="font-mono text-lg font-bold text-purple-300">0</span>
                         </div>
                     </div>
+                </div>
                 </div>
 
                 <!-- Admin: Publish Trade Signal (hidden from regular visitors) -->
@@ -787,10 +840,12 @@
         }
 
         let db = null;
+        let auth = null;
         let firebaseReady = false;
         try {
             firebase.initializeApp(firebaseConfig);
             db = firebase.firestore();
+            auth = firebase.auth();
             firebaseReady = true;
         } catch (e) {
             console.warn('Firebase not configured yet — paste your firebaseConfig to enable shared stats.', e);
@@ -1210,6 +1265,80 @@
 
         if (firebaseReady) {
             setInterval(checkLiveSignal, 20000); // every 20s — stays within TwelveData free-tier rate limits
+        }
+
+        // ================== LOGIN / SIGNUP GATE ==================
+        const authGate = document.getElementById('authGate');
+        const gatedContent = document.getElementById('liveSignalGatedContent');
+        const signupForm = document.getElementById('signupForm');
+        const loginForm = document.getElementById('loginForm');
+
+        document.getElementById('showLoginBtn').addEventListener('click', function () {
+            signupForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+        });
+        document.getElementById('showSignupBtn').addEventListener('click', function () {
+            loginForm.classList.add('hidden');
+            signupForm.classList.remove('hidden');
+        });
+
+        function showAuthError(el, message) {
+            el.textContent = message;
+            el.classList.remove('hidden');
+        }
+
+        document.getElementById('signupBtn').addEventListener('click', function () {
+            if (!firebaseReady) { alert('Login system is not set up yet.'); return; }
+            const phone = document.getElementById('suPhone').value.trim();
+            const email = document.getElementById('suEmail').value.trim();
+            const password = document.getElementById('suPassword').value;
+            const errEl = document.getElementById('signupError');
+            errEl.classList.add('hidden');
+
+            if (!phone || !email || password.length < 6) {
+                showAuthError(errEl, 'Please fill all fields (password must be at least 6 characters).');
+                return;
+            }
+
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(function (cred) {
+                    return db.collection('users').doc(cred.user.uid).set({
+                        phone: phone, email: email, createdAt: Date.now()
+                    });
+                })
+                .catch(function (e) { showAuthError(errEl, e.message); });
+        });
+
+        document.getElementById('loginBtn').addEventListener('click', function () {
+            if (!firebaseReady) { alert('Login system is not set up yet.'); return; }
+            const email = document.getElementById('liEmail').value.trim();
+            const password = document.getElementById('liPassword').value;
+            const errEl = document.getElementById('loginError');
+            errEl.classList.add('hidden');
+
+            if (!email || !password) {
+                showAuthError(errEl, 'Please enter your email and password.');
+                return;
+            }
+
+            auth.signInWithEmailAndPassword(email, password)
+                .catch(function (e) { showAuthError(errEl, e.message); });
+        });
+
+        document.getElementById('logoutBtn').addEventListener('click', function () {
+            if (firebaseReady) auth.signOut();
+        });
+
+        if (firebaseReady) {
+            auth.onAuthStateChanged(function (user) {
+                if (user) {
+                    authGate.classList.add('hidden');
+                    gatedContent.classList.remove('hidden');
+                } else {
+                    authGate.classList.remove('hidden');
+                    gatedContent.classList.add('hidden');
+                }
+            });
         }
     </script>
 </body>
