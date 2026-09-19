@@ -362,6 +362,27 @@
                     </div>
                     <p class="mt-4 text-[11px] text-slate-600">Live price tracking only runs while at least one browser tab (yours or a visitor's) has the site open. For 24/7 tracking &amp; push alerts even when the site is fully closed, a server-side component is needed — ask if you want that built separately.</p>
                 </div>
+
+                <!-- Admin: Registered Users (hidden from regular visitors) -->
+                <div id="usersAdminPanel" class="mt-8 hidden rounded-3xl border border-purple-500/15 bg-white/[0.03] p-6 lg:p-8">
+                    <h3 class="mb-5 flex items-center gap-2 text-base font-bold text-white">
+                        <i data-lucide="users" class="h-5 w-5 text-purple-300"></i>Registered Users
+                        <span id="userCount" class="ml-auto rounded-full bg-purple-500/15 px-3 py-1 text-xs font-bold text-purple-300">0</span>
+                    </h3>
+                    <div class="max-h-96 overflow-y-auto">
+                        <table class="w-full text-left text-sm">
+                            <thead>
+                                <tr class="border-b border-purple-500/15 text-xs uppercase tracking-wide text-slate-500">
+                                    <th class="pb-2 pr-4">Email</th>
+                                    <th class="pb-2 pr-4">Phone</th>
+                                    <th class="pb-2">Signed Up</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody"></tbody>
+                        </table>
+                        <p id="noUsersMsg" class="hidden py-6 text-center text-sm text-slate-500">No sign-ups yet.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -837,6 +858,8 @@
             if (panel) panel.classList.remove('hidden');
             const sigPanel = document.getElementById('signalAdminPanel');
             if (sigPanel) sigPanel.classList.remove('hidden');
+            const usersPanel = document.getElementById('usersAdminPanel');
+            if (usersPanel) usersPanel.classList.remove('hidden');
         }
 
         let db = null;
@@ -1338,6 +1361,32 @@
                     authGate.classList.remove('hidden');
                     gatedContent.classList.add('hidden');
                 }
+            });
+        }
+
+        // ---- Admin: live list of registered users ----
+        if (firebaseReady && isAdmin) {
+            db.collection('users').orderBy('createdAt', 'desc').onSnapshot(function (snapshot) {
+                const tbody = document.getElementById('usersTableBody');
+                const noMsg = document.getElementById('noUsersMsg');
+                document.getElementById('userCount').textContent = snapshot.size;
+                tbody.innerHTML = '';
+                if (snapshot.empty) {
+                    noMsg.classList.remove('hidden');
+                    return;
+                }
+                noMsg.classList.add('hidden');
+                snapshot.forEach(function (doc) {
+                    const u = doc.data();
+                    const date = u.createdAt ? new Date(u.createdAt).toLocaleDateString() : '—';
+                    const row = document.createElement('tr');
+                    row.className = 'border-b border-purple-500/5';
+                    row.innerHTML =
+                        '<td class="py-2 pr-4 text-white">' + (u.email || '—') + '</td>' +
+                        '<td class="py-2 pr-4 text-slate-300">' + (u.phone || '—') + '</td>' +
+                        '<td class="py-2 text-slate-500">' + date + '</td>';
+                    tbody.appendChild(row);
+                });
             });
         }
     </script>
