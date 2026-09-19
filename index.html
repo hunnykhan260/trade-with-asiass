@@ -998,7 +998,9 @@
                 console.warn('Push subscription failed:', e);
             }
         }
-        subscribeToPush();
+        // NOTE: subscribeToPush() is intentionally NOT called automatically on page load.
+        // Mobile browsers silently block permission requests that aren't triggered by a real
+        // user tap/click — it must only run from the "Enable Notifications" button below.
 
         const enableNotifBtn = document.getElementById('enableNotifBtn');
         function refreshNotifBtn() {
