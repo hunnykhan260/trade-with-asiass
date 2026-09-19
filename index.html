@@ -40,11 +40,82 @@
         }
         .card-glow {
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
-            transition: all 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            overflow: hidden;
         }
         .card-glow:hover {
             border-color: rgba(168, 85, 247, 0.4);
             box-shadow: 0 0 25px rgba(168, 85, 247, 0.2);
+            transform: translateY(-6px) scale(1.015);
+        }
+        .card-glow::after {
+            content: '';
+            position: absolute;
+            top: -150%;
+            left: -150%;
+            width: 60%;
+            height: 400%;
+            background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
+            transform: rotate(20deg);
+            transition: left 0.7s ease;
+            pointer-events: none;
+        }
+        .card-glow:hover::after { left: 150%; }
+
+        /* Rotating VIP glow */
+        .vip-glow { position: relative; z-index: 0; }
+        .vip-glow::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            z-index: -1;
+            border-radius: 9999px;
+            background: conic-gradient(from 0deg, #a855f7, #facc15, #d946ef, #a855f7);
+            opacity: 0.55;
+            filter: blur(6px);
+            animation: vip-spin 4s linear infinite;
+            transition: opacity 0.3s ease, filter 0.3s ease;
+        }
+        .vip-glow:hover::before { opacity: 0.9; filter: blur(10px); }
+        @keyframes vip-spin { to { transform: rotate(360deg); } }
+
+        /* Marquee ticker */
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: ticker-scroll 22s linear infinite;
+        }
+        @keyframes ticker-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Bell ring */
+        @keyframes bell-ring {
+            0%, 100% { transform: rotate(0deg); }
+            15% { transform: rotate(18deg); }
+            30% { transform: rotate(-16deg); }
+            45% { transform: rotate(12deg); }
+            60% { transform: rotate(-8deg); }
+            75% { transform: rotate(4deg); }
+        }
+        .bell-ring { animation: bell-ring 0.7s ease-in-out 2; transform-origin: top center; }
+
+        /* Progress bar fill */
+        .progress-fill {
+            transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
     </style>
 </head>
@@ -69,7 +140,7 @@
                     <a href="#contact" class="text-sm font-medium text-slate-300 transition-colors hover:text-purple-300">Contact Us</a>
                 </nav>
                 <div class="hidden lg:block">
-                    <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="btn-glow rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-5 py-2.5 text-sm font-bold text-white">JOIN VIP</a>
+                    <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="btn-glow vip-glow rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-5 py-2.5 text-sm font-bold text-white">JOIN VIP</a>
                 </div>
                 <button id="mobileMenuBtn" class="rounded-md p-2 text-slate-200 lg:hidden" aria-label="Toggle navigation" aria-expanded="false">
                     <i id="menuIconOpen" data-lucide="menu" class="h-6 w-6"></i>
@@ -91,6 +162,28 @@
                 </nav>
             </div>
         </header>
+
+        <!-- Live Marquee Ticker -->
+        <div class="overflow-hidden border-b border-purple-500/15 bg-black/60 py-2">
+            <div class="ticker-track">
+                <span class="flex shrink-0 items-center gap-8 pr-8 text-xs font-semibold text-slate-300 sm:text-sm">
+                    <span>🚀 XAUUSD Buy Setup Active @ 4004</span>
+                    <span class="text-purple-500">•</span>
+                    <span>📈 Weekly Target Hit +420 Pips</span>
+                    <span class="text-purple-500">•</span>
+                    <span>🔔 Join VIP WhatsApp Group for Live Signals</span>
+                    <span class="text-purple-500">•</span>
+                </span>
+                <span class="flex shrink-0 items-center gap-8 pr-8 text-xs font-semibold text-slate-300 sm:text-sm" aria-hidden="true">
+                    <span>🚀 XAUUSD Buy Setup Active @ 4004</span>
+                    <span class="text-purple-500">•</span>
+                    <span>📈 Weekly Target Hit +420 Pips</span>
+                    <span class="text-purple-500">•</span>
+                    <span>🔔 Join VIP WhatsApp Group for Live Signals</span>
+                    <span class="text-purple-500">•</span>
+                </span>
+            </div>
+        </div>
 
         <!-- Hero Section with Background Banner Overlay -->
         <section class="grid-bg relative overflow-hidden border-b border-purple-500/15 py-20 lg:py-32">
@@ -115,7 +208,7 @@
                 <p class="mt-6 max-w-xl text-sm leading-relaxed text-slate-300 sm:text-base">Daily EUR/USD and Gold breakdowns, an 88% win-rate community, and the ICT/SMC education stack that powers every call on the desk.</p>
                 
                 <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-                    <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="btn-glow rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-8 py-3.5 text-sm font-bold text-white">JOIN VIP COMMUNITY</a>
+                    <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="btn-glow vip-glow rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-8 py-3.5 text-sm font-bold text-white">JOIN VIP COMMUNITY</a>
                     <a href="#analysis" class="rounded-full border border-purple-500/30 bg-white/5 px-8 py-3.5 text-sm font-bold text-slate-200 backdrop-blur-md transition-colors hover:border-purple-400/60 hover:bg-purple-500/10">View Today's Analysis</a>
                 </div>
             </div>
@@ -127,12 +220,14 @@
                 <div>
                     <span class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-purple-400">
                         <i data-lucide="bar-chart-2" class="h-4 w-4"></i>Daily Setups
+                        <span class="relative ml-1 flex h-2 w-2"><span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75"></span><span class="relative inline-flex h-2 w-2 rounded-full bg-emerald-500"></span></span>
+                        <span class="text-emerald-400">Live</span>
                     </span>
                     <h2 class="mt-3 text-3xl font-extrabold text-white sm:text-4xl">Analysis Feed</h2>
                     <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">Fresh technical breakdowns from the desk, updated every session.</p>
                 </div>
-                <div class="mt-12 grid gap-6 lg:grid-cols-3">
-                    <article class="pair-card card-glow cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="XAU/USD" data-image="xauusd.png" data-desc="desc-xauusd">
+                <div class="mt-12 grid gap-6 lg:grid-cols-3 reveal-group">
+                    <article class="pair-card card-glow reveal cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="XAU/USD" data-image="xauusd.png" data-desc="desc-xauusd">
                         <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-purple-600/30 via-fuchsia-600/10 to-transparent bg-[#0a0a14]">
                             <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
                                 <polyline points="0,60 20,55 40,58 60,40 80,45 100,20 120,25 140,10" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
@@ -144,7 +239,7 @@
                         </div>
                     </article>
 
-                    <article class="pair-card card-glow cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="EUR/USD" data-image="eurusd.png">
+                    <article class="pair-card card-glow reveal cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="EUR/USD" data-image="eurusd.png">
                         <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-fuchsia-600/30 via-purple-600/10 to-transparent bg-[#0a0a14]">
                             <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
                                 <polyline points="0,15 20,20 40,18 60,35 80,30 100,55 120,50 140,65" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
@@ -156,7 +251,7 @@
                         </div>
                     </article>
 
-                    <article class="pair-card card-glow cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="USD/JPY" data-image="usdjpy.png">
+                    <article class="pair-card card-glow reveal cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="USD/JPY" data-image="usdjpy.png">
                         <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-purple-600/25 via-slate-600/10 to-transparent bg-[#0a0a14]">
                             <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
                                 <polyline points="0,35 20,30 40,38 60,32 80,40 100,30 120,36 140,32" fill="none" stroke="#c084fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
@@ -308,6 +403,27 @@
                             <div class="rounded-xl border border-emerald-500/10 bg-black/30 p-4 text-center">
                                 <div id="sigTP2" class="font-mono text-lg font-bold text-emerald-400">—</div>
                                 <div class="mt-1 text-[11px] uppercase tracking-wide text-slate-500">TP2 (Final)</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 space-y-4">
+                            <div>
+                                <div class="mb-1 flex items-center justify-between text-[11px] uppercase tracking-wide text-slate-500">
+                                    <span>Progress to TP1</span>
+                                    <span id="tp1ProgressLabel">0%</span>
+                                </div>
+                                <div class="h-2 w-full overflow-hidden rounded-full bg-black/40">
+                                    <div id="tp1ProgressBar" class="progress-fill h-full rounded-full bg-gradient-to-r from-purple-500 to-emerald-400" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="mb-1 flex items-center justify-between text-[11px] uppercase tracking-wide text-slate-500">
+                                    <span>Progress to TP2 (Final)</span>
+                                    <span id="tp2ProgressLabel">0%</span>
+                                </div>
+                                <div class="h-2 w-full overflow-hidden rounded-full bg-black/40">
+                                    <div id="tp2ProgressBar" class="progress-fill h-full rounded-full bg-gradient-to-r from-purple-500 to-emerald-400" style="width: 0%"></div>
+                                </div>
                             </div>
                         </div>
 
@@ -488,7 +604,7 @@
                 <div class="mt-12">
                     <h3 class="mb-6 text-lg font-bold text-purple-300">ICT/SMC Series</h3>
                     <div class="grid gap-6 lg:grid-cols-3">
-                        <a href="https://youtu.be/3JWYc0clO2k" target="_blank" class="card-glow group block overflow-hidden rounded-2xl border border-purple-500/15 bg-white/[0.03]">
+                        <a href="https://youtu.be/3JWYc0clO2k" target="_blank" class="card-glow reveal group block overflow-hidden rounded-2xl border border-purple-500/15 bg-white/[0.03]">
                             <div class="relative aspect-video w-full overflow-hidden bg-[#0a0a14]">
                                 <img src="https://img.youtube.com/vi/3JWYc0clO2k/hqdefault.jpg" alt="ICT/SMC Series - Episode 1" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"/>
                                 <div class="absolute inset-0 flex items-center justify-center bg-black/25 transition-colors group-hover:bg-black/40">
@@ -502,7 +618,7 @@
                             </div>
                         </a>
 
-                        <a href="https://youtu.be/yNBq07MoC08" target="_blank" class="card-glow group block overflow-hidden rounded-2xl border border-purple-500/15 bg-white/[0.03]">
+                        <a href="https://youtu.be/yNBq07MoC08" target="_blank" class="card-glow reveal group block overflow-hidden rounded-2xl border border-purple-500/15 bg-white/[0.03]">
                             <div class="relative aspect-video w-full overflow-hidden bg-[#0a0a14]">
                                 <img src="https://img.youtube.com/vi/yNBq07MoC08/hqdefault.jpg" alt="ICT/SMC Series - Episode 2" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"/>
                                 <div class="absolute inset-0 flex items-center justify-center bg-black/25 transition-colors group-hover:bg-black/40">
@@ -516,7 +632,7 @@
                             </div>
                         </a>
 
-                        <a href="https://youtu.be/Vy-E9U2_xj0" target="_blank" class="card-glow group block overflow-hidden rounded-2xl border border-purple-500/15 bg-white/[0.03]">
+                        <a href="https://youtu.be/Vy-E9U2_xj0" target="_blank" class="card-glow reveal group block overflow-hidden rounded-2xl border border-purple-500/15 bg-white/[0.03]">
                             <div class="relative aspect-video w-full overflow-hidden bg-[#0a0a14]">
                                 <img src="https://img.youtube.com/vi/Vy-E9U2_xj0/hqdefault.jpg" alt="ICT/SMC Series - Episode 3" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"/>
                                 <div class="absolute inset-0 flex items-center justify-center bg-black/25 transition-colors group-hover:bg-black/40">
@@ -537,7 +653,7 @@
                         <i data-lucide="file-text" class="h-5 w-5"></i>Lecture Notes (PDF)
                     </h3>
                     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                        <a href="notes/lecture-01-ict-smc.pdf" target="_blank" class="card-glow flex flex-col items-start gap-3 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
+                        <a href="notes/lecture-01-ict-smc.pdf" target="_blank" class="card-glow reveal flex flex-col items-start gap-3 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
                             <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-500/15 text-red-400">
                                 <i data-lucide="file-text" class="h-5 w-5"></i>
                             </span>
@@ -548,7 +664,7 @@
                             <span class="mt-auto flex items-center gap-1 text-xs font-semibold text-purple-300"><i data-lucide="download" class="h-3.5 w-3.5"></i>Download PDF</span>
                         </a>
 
-                        <a href="notes/lecture-02-ict-smc.pdf" target="_blank" class="card-glow flex flex-col items-start gap-3 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
+                        <a href="notes/lecture-02-ict-smc.pdf" target="_blank" class="card-glow reveal flex flex-col items-start gap-3 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
                             <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-500/15 text-red-400">
                                 <i data-lucide="file-text" class="h-5 w-5"></i>
                             </span>
@@ -559,7 +675,7 @@
                             <span class="mt-auto flex items-center gap-1 text-xs font-semibold text-purple-300"><i data-lucide="download" class="h-3.5 w-3.5"></i>Download PDF</span>
                         </a>
 
-                        <a href="notes/lecture-03-ict-smc.pdf" target="_blank" class="card-glow flex flex-col items-start gap-3 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
+                        <a href="notes/lecture-03-ict-smc.pdf" target="_blank" class="card-glow reveal flex flex-col items-start gap-3 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
                             <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-500/15 text-red-400">
                                 <i data-lucide="file-text" class="h-5 w-5"></i>
                             </span>
@@ -570,7 +686,7 @@
                             <span class="mt-auto flex items-center gap-1 text-xs font-semibold text-purple-300"><i data-lucide="download" class="h-3.5 w-3.5"></i>Download PDF</span>
                         </a>
 
-                        <a href="notes/lecture-04-ict-smc.pdf" target="_blank" class="card-glow flex flex-col items-start gap-3 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
+                        <a href="notes/lecture-04-ict-smc.pdf" target="_blank" class="card-glow reveal flex flex-col items-start gap-3 rounded-2xl border border-purple-500/15 bg-white/[0.03] p-5 hover:bg-white/[0.06] transition-all">
                             <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-500/15 text-red-400">
                                 <i data-lucide="file-text" class="h-5 w-5"></i>
                             </span>
@@ -605,7 +721,7 @@
                     </div>
                 </div>
 
-                <div class="mt-6 grid gap-6 rounded-3xl border border-purple-500/25 bg-gradient-to-b from-purple-500/[0.06] to-transparent p-8 sm:grid-cols-2 lg:p-12">
+                <div class="reveal mt-6 grid gap-6 rounded-3xl border border-purple-500/25 bg-gradient-to-b from-purple-500/[0.06] to-transparent p-8 sm:grid-cols-2 lg:p-12">
                     <div class="flex items-center gap-4 rounded-2xl border border-purple-500/15 bg-black/30 p-6">
                         <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-purple-500/15 text-purple-300">
                             <i data-lucide="target" class="h-6 w-6"></i>
@@ -626,7 +742,7 @@
                     </div>
                     <div class="col-span-full mt-2 flex flex-col items-center gap-4 border-t border-purple-500/15 pt-8 text-center">
                         <div class="flex items-center gap-2 text-sm text-slate-400">
-                            <i data-lucide="users" class="h-4 w-4 text-emerald-400"></i>1,000+ traders receiving daily signals
+                            <i data-lucide="users" class="h-4 w-4 text-emerald-400"></i><span id="tradersCounter" data-target="1000">0</span>+ traders receiving daily signals
                         </div>
                         <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="flex items-center gap-2 rounded-full bg-emerald-500 px-8 py-3.5 text-sm font-bold text-black shadow-[0_0_25px_rgba(16,185,129,0.4)] transition-transform hover:scale-[1.03]">
                             <i data-lucide="message-circle" class="h-4 w-4"></i>JOIN FREE COMMUNITY
@@ -1101,7 +1217,16 @@
             });
         }
 
+        function shakeBell() {
+            const bellIcon = document.querySelector('#enableNotifBtn i');
+            if (!bellIcon) return;
+            bellIcon.classList.remove('bell-ring');
+            void bellIcon.offsetWidth; // restart animation
+            bellIcon.classList.add('bell-ring');
+        }
+
         function notify(title, body) {
+            shakeBell();
             if ('Notification' in window && Notification.permission === 'granted') {
                 new Notification(title, { body: body });
             }
@@ -1182,6 +1307,18 @@
             const statusEl = document.getElementById('sigStatus');
             statusEl.textContent = (data.status || '').replace(/_/g, ' ');
             statusEl.className = 'rounded-full px-3 py-1 text-xs font-bold ' + (statusColors[data.status] || 'bg-slate-500/15 text-slate-300');
+
+            // Animated TP1/TP2 progress bars
+            const mult = pipMultiplier(data.pair || '');
+            const highest = data.highestPipsReached || 0;
+            const pipsToTP1 = Math.abs((data.tp1 - data.entry)) * mult;
+            const pipsToTP2 = Math.abs((data.tp2 - data.entry)) * mult;
+            const pct1 = pipsToTP1 > 0 ? Math.min(100, (highest / pipsToTP1) * 100) : 0;
+            const pct2 = pipsToTP2 > 0 ? Math.min(100, (highest / pipsToTP2) * 100) : 0;
+            document.getElementById('tp1ProgressBar').style.width = pct1.toFixed(0) + '%';
+            document.getElementById('tp1ProgressLabel').textContent = pct1.toFixed(0) + '%';
+            document.getElementById('tp2ProgressBar').style.width = pct2.toFixed(0) + '%';
+            document.getElementById('tp2ProgressLabel').textContent = pct2.toFixed(0) + '%';
         }
 
         if (firebaseReady) {
@@ -1388,6 +1525,52 @@
                     tbody.appendChild(row);
                 });
             });
+        }
+
+        // ================== SCROLL REVEAL + COUNTER-UP ==================
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry, i) {
+                    if (entry.isIntersecting) {
+                        setTimeout(function () {
+                            entry.target.classList.add('is-visible');
+                        }, i * 80); // slight stagger
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            document.querySelectorAll('.reveal').forEach(function (el) {
+                revealObserver.observe(el);
+            });
+
+            const counterEl = document.getElementById('tradersCounter');
+            if (counterEl) {
+                const counterObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            const target = parseInt(counterEl.getAttribute('data-target'), 10) || 0;
+                            const duration = 1200;
+                            const start = performance.now();
+                            function tick(now) {
+                                const progress = Math.min(1, (now - start) / duration);
+                                const eased = 1 - Math.pow(1 - progress, 3);
+                                counterEl.textContent = Math.floor(eased * target).toLocaleString();
+                                if (progress < 1) requestAnimationFrame(tick);
+                                else counterEl.textContent = target.toLocaleString();
+                            }
+                            requestAnimationFrame(tick);
+                            counterObserver.disconnect();
+                        }
+                    });
+                }, { threshold: 0.4 });
+                counterObserver.observe(counterEl);
+            }
+        } else {
+            // Fallback: no IntersectionObserver support — just show everything immediately
+            document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('is-visible'); });
+            const counterEl = document.getElementById('tradersCounter');
+            if (counterEl) counterEl.textContent = counterEl.getAttribute('data-target');
         }
     </script>
 </body>
