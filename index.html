@@ -39,6 +39,8 @@
             text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
         }
         .card-glow {
+            --mx: 50%;
+            --my: 50%;
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.1);
             transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
             position: relative;
@@ -49,6 +51,23 @@
             box-shadow: 0 0 25px rgba(168, 85, 247, 0.2);
             transform: translateY(-6px) scale(1.015);
         }
+        .card-glow::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(
+                220px circle at var(--mx) var(--my),
+                rgba(255, 255, 255, 0.10),
+                rgba(168, 85, 247, 0.08) 40%,
+                transparent 65%
+            );
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .card-glow:hover::before { opacity: 1; }
+        .card-glow > * { position: relative; z-index: 1; }
         .card-glow::after {
             content: '';
             position: absolute;
@@ -400,7 +419,7 @@
         <!-- Pair Chart Modal -->
         <div id="pairModal" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/80 backdrop-blur-sm p-4">
             <div class="relative max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-2xl border border-purple-500/25 bg-[#0a0a14] p-5 lg:p-6">
-                <button id="closePairModal" class="absolute -top-3 -right-3 flex h-9 w-9 items-center justify-center rounded-full bg-purple-500 text-white shadow-[0_0_15px_rgba(168,85,247,0.6)]" aria-label="Close">
+                <button id="closePairModal" class="liquid-glass absolute -top-3 -right-3 flex h-9 w-9 items-center justify-center rounded-full text-white" aria-label="Close">
                     <i data-lucide="x" class="h-5 w-5"></i>
                 </button>
                 <h3 id="pairModalTitle" class="mb-4 text-lg font-bold text-white"></h3>
@@ -849,7 +868,7 @@
 
                 <!-- Weekly / Monthly Toggle -->
                 <div class="mt-10 flex justify-center">
-                    <div class="inline-flex rounded-full border border-purple-500/25 bg-black/30 p-1">
+                    <div class="liquid-glass inline-flex rounded-full p-1">
                         <button id="tabWeekly" class="stats-tab rounded-full px-6 py-2 text-sm font-bold text-white bg-gradient-to-r from-purple-500 to-fuchsia-600">Weekly Stats</button>
                         <button id="tabMonthly" class="stats-tab rounded-full px-6 py-2 text-sm font-bold text-slate-300">Monthly Stats</button>
                     </div>
@@ -1839,7 +1858,7 @@
         };
 
         // ================== LIQUID GLASS: mouse-tracked highlight ==================
-        document.querySelectorAll('.liquid-glass').forEach(function (el) {
+        document.querySelectorAll('.liquid-glass, .card-glow').forEach(function (el) {
             el.addEventListener('pointermove', function (e) {
                 const rect = el.getBoundingClientRect();
                 const x = ((e.clientX - rect.left) / rect.width) * 100;
