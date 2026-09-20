@@ -117,6 +117,55 @@
         .progress-fill {
             transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
+
+        /* Animated candlestick chart background (hero section) */
+        .hero-candles {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: flex-end;
+            opacity: 0.28;
+            pointer-events: none;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 35%, black 75%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 35%, black 75%, transparent 100%);
+        }
+        .candle-track {
+            display: flex;
+            align-items: flex-end;
+            gap: 16px;
+            width: max-content;
+            animation: candle-scroll 26s linear infinite;
+        }
+        @keyframes candle-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        .candle-slot {
+            position: relative;
+            width: 10px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        .candle-wick {
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            width: 2px;
+            transform: translateX(-50%);
+            background: currentColor;
+            opacity: 0.5;
+        }
+        .candle-body {
+            position: relative;
+            width: 8px;
+            border-radius: 2px;
+            background: currentColor;
+        }
+        .candle-up { color: #34d399; }
+        .candle-down { color: #f87171; }
     </style>
 </head>
 <body class="bg-[#05050a] text-slate-100">
@@ -1577,6 +1626,61 @@
             const counterEl = document.getElementById('tradersCounter');
             if (counterEl) counterEl.textContent = counterEl.getAttribute('data-target');
         }
+
+        // ================== HERO CANDLESTICK BACKGROUND ==================
+        (function buildHeroCandles() {
+            const track = document.getElementById('candleTrack');
+            if (!track) return;
+
+            const COUNT = 40;
+            let lastClose = 50; // start mid-range (0-100 scale)
+            const candles = [];
+
+            for (let i = 0; i < COUNT; i++) {
+                const open = lastClose;
+                const change = (Math.random() - 0.48) * 22; // slight upward drift
+                let close = Math.max(8, Math.min(92, open + change));
+                const high = Math.max(open, close) + Math.random() * 10;
+                const low = Math.min(open, close) - Math.random() * 10;
+                candles.push({ open: open, close: close, high: high, low: low });
+                lastClose = close;
+            }
+
+            function renderSet() {
+                const frag = document.createDocumentFragment();
+                candles.forEach(function (c) {
+                    const isUp = c.close >= c.open;
+                    const bodyHeight = Math.max(4, Math.abs(c.close - c.open) * 1.1);
+                    const bodyBottom = Math.min(c.open, c.close) * 1.1;
+                    const wickTop = c.high * 1.1;
+                    const wickBottom = c.low * 1.1;
+                    const wickHeight = Math.max(bodyHeight, wickTop - wickBottom);
+
+                    const slot = document.createElement('div');
+                    slot.className = 'candle-slot';
+                    slot.style.height = '160px';
+
+                    const wick = document.createElement('div');
+                    wick.className = 'candle-wick ' + (isUp ? 'candle-up' : 'candle-down');
+                    wick.style.height = wickHeight + 'px';
+                    wick.style.bottom = wickBottom + 'px';
+
+                    const body = document.createElement('div');
+                    body.className = 'candle-body ' + (isUp ? 'candle-up' : 'candle-down');
+                    body.style.height = bodyHeight + 'px';
+                    body.style.marginBottom = bodyBottom + 'px';
+
+                    slot.appendChild(wick);
+                    slot.appendChild(body);
+                    frag.appendChild(slot);
+                });
+                return frag;
+            }
+
+            // Render twice back-to-back so the CSS translateX(-50%) loop is seamless
+            track.appendChild(renderSet());
+            track.appendChild(renderSet());
+        })();
     </script>
 </body>
 </html>
