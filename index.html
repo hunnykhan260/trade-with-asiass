@@ -203,6 +203,10 @@
                 <div class="hidden lg:block">
                     <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="btn-glow vip-glow rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-5 py-2.5 text-sm font-bold text-white">JOIN VIP</a>
                 </div>
+                <button id="soundToggleBtn" class="rounded-md p-2 text-slate-300 hover:text-purple-300" aria-label="Toggle sound effects" title="Toggle sound effects">
+                    <i id="soundIconOn" data-lucide="volume-2" class="h-5 w-5"></i>
+                    <i id="soundIconOff" data-lucide="volume-x" class="hidden h-5 w-5"></i>
+                </button>
                 <button id="mobileMenuBtn" class="rounded-md p-2 text-slate-200 lg:hidden" aria-label="Toggle navigation" aria-expanded="false">
                     <i id="menuIconOpen" data-lucide="menu" class="h-6 w-6"></i>
                     <i id="menuIconClose" data-lucide="x" class="hidden h-6 w-6"></i>
@@ -263,9 +267,9 @@
             </div>
 
             <div class="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-5 text-center">
-                <span class="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-300 backdrop-blur-md">
+                <button id="liveDeskBadge" class="sound-trigger mb-6 inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-500/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-purple-300 backdrop-blur-md transition-colors hover:border-emerald-400/50">
                     <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400"></span>Live Desk — Markets Open
-                </span>
+                </button>
 
                 <h1 class="text-glow max-w-4xl text-4xl font-black uppercase leading-tight tracking-tight text-white sm:text-5xl lg:text-7xl">Trade with Asiass Airlines</h1>
                 <p class="mt-6 flex flex-wrap items-center justify-center gap-2 text-lg font-semibold text-purple-300 sm:text-xl">
@@ -293,7 +297,7 @@
                     <p class="mt-3 max-w-xl text-sm text-slate-400 sm:text-base">Fresh technical breakdowns from the desk, updated every session.</p>
                 </div>
                 <div class="mt-12 grid gap-6 lg:grid-cols-3 reveal-group">
-                    <article class="pair-card card-glow reveal cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="XAU/USD" data-image="xauusd.png" data-desc="desc-xauusd">
+                    <article class="pair-card card-glow reveal sound-trigger cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="XAU/USD" data-image="xauusd.png" data-desc="desc-xauusd">
                         <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-purple-600/30 via-fuchsia-600/10 to-transparent bg-[#0a0a14]">
                             <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
                                 <polyline points="0,60 20,55 40,58 60,40 80,45 100,20 120,25 140,10" fill="none" stroke="#4ade80" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
@@ -305,7 +309,7 @@
                         </div>
                     </article>
 
-                    <article class="pair-card card-glow reveal cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="EUR/USD" data-image="eurusd.png">
+                    <article class="pair-card card-glow reveal sound-trigger cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="EUR/USD" data-image="eurusd.png">
                         <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-fuchsia-600/30 via-purple-600/10 to-transparent bg-[#0a0a14]">
                             <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
                                 <polyline points="0,15 20,20 40,18 60,35 80,30 100,55 120,50 140,65" fill="none" stroke="#f87171" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
@@ -317,7 +321,7 @@
                         </div>
                     </article>
 
-                    <article class="pair-card card-glow reveal cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="USD/JPY" data-image="usdjpy.png">
+                    <article class="pair-card card-glow reveal sound-trigger cursor-pointer rounded-2xl border border-purple-500/15 bg-white/[0.03] p-0 overflow-hidden" data-pair="USD/JPY" data-image="usdjpy.png">
                         <div class="relative flex h-36 items-center justify-center bg-gradient-to-br from-purple-600/25 via-slate-600/10 to-transparent bg-[#0a0a14]">
                             <svg viewBox="0 0 140 70" class="h-24 w-full max-w-[220px] opacity-80">
                                 <polyline points="0,35 20,30 40,38 60,32 80,40 100,30 120,36 140,32" fill="none" stroke="#c084fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
@@ -435,7 +439,7 @@
                 <!-- Gated content: only visible once logged in -->
                 <div id="liveSignalGatedContent" class="hidden">
                     <div class="mt-8 flex flex-wrap items-center justify-between gap-3">
-                        <button id="enableNotifBtn" class="btn-glow inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-6 py-2.5 text-sm font-bold text-white">
+                        <button id="enableNotifBtn" class="btn-glow sound-trigger inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-6 py-2.5 text-sm font-bold text-white">
                             <i data-lucide="bell" class="h-4 w-4"></i>Enable Notifications
                         </button>
                         <button id="logoutBtn" class="text-sm font-semibold text-slate-500 hover:text-red-400">Log out</button>
@@ -539,8 +543,8 @@
                         </div>
                     </div>
                     <div class="mt-5 flex flex-col gap-3 sm:flex-row">
-                        <button id="publishSignalBtn" class="btn-glow flex-1 rounded-xl bg-gradient-to-r from-purple-500 to-fuchsia-600 py-3 text-sm font-bold text-white">Publish Trade</button>
-                        <button id="closeSignalBtn" class="flex-1 rounded-xl border border-red-500/30 bg-red-500/10 py-3 text-sm font-bold text-red-400 hover:bg-red-500/20">Close / Reset Trade</button>
+                        <button id="publishSignalBtn" class="btn-glow sound-trigger flex-1 rounded-xl bg-gradient-to-r from-purple-500 to-fuchsia-600 py-3 text-sm font-bold text-white">Publish Trade</button>
+                        <button id="closeSignalBtn" class="sound-trigger flex-1 rounded-xl border border-red-500/30 bg-red-500/10 py-3 text-sm font-bold text-red-400 hover:bg-red-500/20">Close / Reset Trade</button>
                     </div>
                     <p class="mt-4 text-[11px] text-slate-600">Live price tracking only runs while at least one browser tab (yours or a visitor's) has the site open. For 24/7 tracking &amp; push alerts even when the site is fully closed, a server-side component is needed — ask if you want that built separately.</p>
                 </div>
@@ -1696,6 +1700,82 @@
             track.appendChild(renderSet());
             track.appendChild(renderSet());
         })();
+
+        // ================== SOUND EFFECTS ==================
+        let soundEnabled = localStorage.getItem('asiassSoundEnabled') !== 'false'; // default ON
+        let audioCtx = null;
+
+        function getAudioCtx() {
+            if (!audioCtx) {
+                const Ctx = window.AudioContext || window.webkitAudioContext;
+                if (Ctx) audioCtx = new Ctx();
+            }
+            return audioCtx;
+        }
+
+        // Short, subtle "trading terminal" blip — synthesized, no audio file needed
+        function playTerminalSound() {
+            if (!soundEnabled) return;
+            const ctx = getAudioCtx();
+            if (!ctx) return;
+            if (ctx.state === 'suspended') ctx.resume();
+
+            const now = ctx.currentTime;
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(920, now);
+            osc.frequency.exponentialRampToValueAtTime(560, now + 0.09);
+
+            gain.gain.setValueAtTime(0.0001, now);
+            gain.gain.exponentialRampToValueAtTime(0.12, now + 0.008);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.14);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now);
+            osc.stop(now + 0.16);
+        }
+
+        const soundToggleBtn = document.getElementById('soundToggleBtn');
+        const soundIconOn = document.getElementById('soundIconOn');
+        const soundIconOff = document.getElementById('soundIconOff');
+        function refreshSoundIcon() {
+            if (!soundToggleBtn) return;
+            soundIconOn.classList.toggle('hidden', !soundEnabled);
+            soundIconOff.classList.toggle('hidden', soundEnabled);
+        }
+        refreshSoundIcon();
+        if (soundToggleBtn) {
+            soundToggleBtn.addEventListener('click', function () {
+                soundEnabled = !soundEnabled;
+                localStorage.setItem('asiassSoundEnabled', soundEnabled ? 'true' : 'false');
+                refreshSoundIcon();
+                if (soundEnabled) playTerminalSound();
+            });
+        }
+
+        // Wire click sound to every element marked as a sound trigger
+        document.querySelectorAll('.sound-trigger').forEach(function (el) {
+            el.addEventListener('click', playTerminalSound);
+        });
+
+        // "Live Desk" badge scrolls to the Live Signal section
+        const liveDeskBadge = document.getElementById('liveDeskBadge');
+        if (liveDeskBadge) {
+            liveDeskBadge.addEventListener('click', function () {
+                const target = document.getElementById('live-signal');
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            });
+        }
+
+        // Also play a soft blip whenever a live signal notification fires
+        const _origNotify = notify;
+        notify = function (title, body) {
+            playTerminalSound();
+            _origNotify(title, body);
+        };
     </script>
 </body>
 </html>
