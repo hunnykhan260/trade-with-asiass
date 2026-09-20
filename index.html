@@ -118,6 +118,65 @@
             transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
+        /* iOS-style "Liquid Glass" icon buttons */
+        .liquid-glass {
+            --mx: 50%;
+            --my: 50%;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(14px) saturate(180%);
+            -webkit-backdrop-filter: blur(14px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.35),
+                inset 0 -6px 10px rgba(168, 85, 247, 0.12),
+                0 4px 18px rgba(0, 0, 0, 0.35);
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, background 0.35s ease;
+        }
+        .liquid-glass::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(
+                120px circle at var(--mx) var(--my),
+                rgba(255, 255, 255, 0.55),
+                rgba(255, 255, 255, 0.12) 35%,
+                transparent 60%
+            );
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .liquid-glass::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background: radial-gradient(
+                180px circle at var(--mx) var(--my),
+                rgba(168, 85, 247, 0.35),
+                transparent 55%
+            );
+            mix-blend-mode: screen;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+        .liquid-glass:hover {
+            transform: translateY(-2px) scale(1.04);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow:
+                inset 0 1px 1px rgba(255, 255, 255, 0.5),
+                inset 0 -6px 12px rgba(168, 85, 247, 0.2),
+                0 8px 26px rgba(168, 85, 247, 0.25);
+        }
+        .liquid-glass:hover::before,
+        .liquid-glass:hover::after { opacity: 1; }
+        .liquid-glass > * { position: relative; z-index: 2; }
+
         /* Dark bull watermark across the whole site */
         .site-watermark {
             background-color: #05050a;
@@ -188,7 +247,9 @@
             <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8">
                 <a href="#" class="flex items-center gap-3">
                     <!-- Custom Logo Image -->
-                    <img src="logo.png" alt="Trade with Asiass Logo" class="h-10 w-auto object-contain rounded-lg shadow-[0_0_15px_rgba(168,85,247,0.5)]" onerror="this.style.display='none'"/>
+                    <span class="liquid-glass flex items-center justify-center rounded-xl px-1.5 py-1">
+                        <img src="logo.png" alt="Trade with Asiass Logo" class="h-9 w-auto object-contain" onerror="this.style.display='none'"/>
+                    </span>
                     <span class="text-lg font-extrabold tracking-tight text-white">Trade with <span class="text-purple-400">Asiass</span></span>
                 </a>
                 <nav class="hidden items-center gap-7 lg:flex">
@@ -203,11 +264,11 @@
                 <div class="hidden lg:block">
                     <a href="https://chat.whatsapp.com/GeimxAOJRQgJfDvnrqQR9u" target="_blank" class="btn-glow vip-glow rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-600 px-5 py-2.5 text-sm font-bold text-white">JOIN VIP</a>
                 </div>
-                <button id="soundToggleBtn" class="rounded-md p-2 text-slate-300 hover:text-purple-300" aria-label="Toggle sound effects" title="Toggle sound effects">
+                <button id="soundToggleBtn" class="liquid-glass rounded-full p-2.5 text-slate-200" aria-label="Toggle sound effects" title="Toggle sound effects">
                     <i id="soundIconOn" data-lucide="volume-2" class="h-5 w-5"></i>
                     <i id="soundIconOff" data-lucide="volume-x" class="hidden h-5 w-5"></i>
                 </button>
-                <button id="mobileMenuBtn" class="rounded-md p-2 text-slate-200 lg:hidden" aria-label="Toggle navigation" aria-expanded="false">
+                <button id="mobileMenuBtn" class="liquid-glass rounded-full p-2.5 text-slate-200 lg:hidden" aria-label="Toggle navigation" aria-expanded="false">
                     <i id="menuIconOpen" data-lucide="menu" class="h-6 w-6"></i>
                     <i id="menuIconClose" data-lucide="x" class="hidden h-6 w-6"></i>
                 </button>
@@ -1776,6 +1837,21 @@
             playTerminalSound();
             _origNotify(title, body);
         };
+
+        // ================== LIQUID GLASS: mouse-tracked highlight ==================
+        document.querySelectorAll('.liquid-glass').forEach(function (el) {
+            el.addEventListener('pointermove', function (e) {
+                const rect = el.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width) * 100;
+                const y = ((e.clientY - rect.top) / rect.height) * 100;
+                el.style.setProperty('--mx', x + '%');
+                el.style.setProperty('--my', y + '%');
+            });
+            el.addEventListener('pointerleave', function () {
+                el.style.setProperty('--mx', '50%');
+                el.style.setProperty('--my', '50%');
+            });
+        });
     </script>
 </body>
 </html>
